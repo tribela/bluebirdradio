@@ -8,4 +8,7 @@
     <string name="service_stopped">Service stopped</string>
     <string name="initialize_failed">Service Failed</string>
 
+    <string name="CONSUMER_KEY">pQrJ6uH5VSyMnRIhujHaXWuYu</string>
+    <string name="CONSUMER_SECRET">TSqiGL4JQ6eXfYLtnzkNzPZLmADE8dtqekErnpfVocYvNciO2k</string>
+
 </resources>
