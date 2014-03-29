@@ -118,7 +118,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 text = status.getText();
             }
             String message = String.format("%s: %s", screenName, text);
-            tts.speak(message, TextToSpeech.QUEUE_FLUSH, null);
+            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
         }
 
         @Override
