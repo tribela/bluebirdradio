@@ -20,6 +20,12 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         startServiceToggle.setOnCheckedChangeListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startServiceToggle.setChecked(TwitterVoiceService.isRunning());
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

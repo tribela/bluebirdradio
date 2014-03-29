@@ -33,6 +33,7 @@ import twitter4j.conf.ConfigurationBuilder;
  * Created by kjwon15 on 2014. 3. 30..
  */
 public class TwitterVoiceService extends Service implements OnInitListener {
+    private static TwitterVoiceService instance = null;
     private TextToSpeech tts;
     private TwitterStream stream;
 
@@ -48,6 +49,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     @SuppressLint("NewApi")
     @Override
     public void onCreate() {
+        instance = this;
         tts = new TextToSpeech(this, this);
         loginTwitter();
     }
@@ -74,6 +76,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     @Override
     public void onDestroy() {
+        instance = null;
         if (tts != null) {
             tts.stop();
             tts.shutdown();
@@ -86,6 +89,10 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         Toast.makeText(getApplicationContext(),
                 getText(R.string.service_stopped),
                 Toast.LENGTH_SHORT).show();
+    }
+
+    public static boolean isRunning() {
+        return instance != null;
     }
 
     @Override
