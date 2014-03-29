@@ -9,5 +9,11 @@
     android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <Switch
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/switch_start_service"
+        android:text="@string/start_service"
+        tools:ignore="NewApi" />
 
 </LinearLayout>

@@ -1,15 +1,23 @@
 package kai.twitter.voice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
+    private Switch startServiceToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startServiceToggle = (Switch) findViewById(R.id.switch_start_service);
+        startServiceToggle.setOnCheckedChangeListener(this);
     }
 
 
@@ -31,5 +39,17 @@ public class MainActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+        if (startServiceToggle.getId() == compoundButton.getId()) {
+            Intent intent = new Intent(getApplicationContext(), TwitterVoiceService.class);
+            if (checked) {
+                startService(intent);
+            } else {
+                stopService(intent);
+            }
+        }
     }
 }
