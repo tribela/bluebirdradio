@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Preferences">
+
+    <PreferenceCategory
+        android:title="Options">
+
+        <CheckBoxPreference
+            android:key="stop_on_unplugged"
+            android:title="Stop on headset unplugged"
+            android:summary="Stop twitter voice when headset unplugged"
+            android:defaultValue="true"
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

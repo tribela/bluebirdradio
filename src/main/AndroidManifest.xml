@@ -24,7 +24,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".TwitterVoiceService" />
+
+        <service android:name="kai.twitter.voice.TwitterVoiceService" />
+
+        <receiver android:name="kai.twitter.voice.HeadphoneReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.HEADSET_PLUG" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="kai.twitter.voice.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>
