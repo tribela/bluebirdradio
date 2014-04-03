@@ -1,11 +1,17 @@
 package kai.twitter.voice;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import twitter4j.StallWarning;
@@ -24,6 +30,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private static TwitterVoiceService instance = null;
     private TextToSpeech tts;
     private TwitterStream stream;
+    private NotificationManager notificationManager;
+    private Notification notification;
 
     public IBinder onBind(Intent intent) {
         return null;
@@ -38,7 +46,24 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     public void onCreate() {
         instance = this;
         tts = new TextToSpeech(this, this);
+        makeNotification();
         loginTwitter();
+    }
+
+    @SuppressLint("NewApi")
+    private void makeNotification() {
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent intent = new Intent(this, this.getClass());
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        notification = new Notification.Builder(this)
+                .setContentTitle(getText(R.string.app_name))
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_launcher, "Stop", pIntent)
+                .build();
+
+        notificationManager.notify(0, notification);
     }
 
     private void loginTwitter() {
@@ -71,6 +96,10 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         if (stream != null) {
             stream.shutdown();
+        }
+
+        if (notificationManager != null) {
+            notificationManager.cancelAll();
         }
 
         Toast.makeText(getApplicationContext(),
