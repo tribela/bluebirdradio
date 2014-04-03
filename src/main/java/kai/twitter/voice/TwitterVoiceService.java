@@ -1,31 +1,19 @@
 package kai.twitter.voice;
 
-import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.os.StrictMode;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.widget.Toast;
-import android.speech.tts.TextToSpeech.OnInitListener;
 
-import java.util.Properties;
-
-import twitter4j.DirectMessage;
-import twitter4j.HttpClientConfiguration;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
-import twitter4j.User;
-import twitter4j.UserList;
-import twitter4j.UserStreamListener;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -46,7 +34,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         return Service.START_STICKY;
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onCreate() {
         instance = this;
