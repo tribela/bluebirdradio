@@ -1,10 +1,7 @@
 package kai.twitter.voice;
 
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +10,6 @@ import android.widget.Switch;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
     private Switch startServiceToggle;
-    private SharedPreferences preferences;
-    private HeadphoneReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +19,6 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         startServiceToggle = (Switch) findViewById(R.id.switch_start_service);
         startServiceToggle.setOnCheckedChangeListener(this);
 
-        receiver = new HeadphoneReceiver();
-        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (preferences.getBoolean("stop_on_unplugged", true)) {
-            IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-            registerReceiver(receiver, filter);
-        }
     }
 
     @Override

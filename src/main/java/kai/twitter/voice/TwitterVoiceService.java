@@ -5,7 +5,10 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
@@ -28,6 +31,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private TextToSpeech tts;
     private TwitterStream stream;
     private Notification notification;
+    private SharedPreferences preferences;
+    private HeadphoneReceiver receiver;
 
     public IBinder onBind(Intent intent) {
         return null;
@@ -42,7 +47,9 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     public void onCreate() {
         instance = this;
         tts = new TextToSpeech(this, this);
+        receiver = new HeadphoneReceiver();
         makeNotification();
+        registerHeadsetReceiver();
         loginTwitter();
     }
 
@@ -59,6 +66,14 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 .build();
 
         startForeground(1, notification);
+    }
+
+    private void registerHeadsetReceiver() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (preferences.getBoolean("stop_on_unplugged", true)) {
+            IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+            registerReceiver(receiver, filter);
+        }
     }
 
     private void loginTwitter() {
@@ -94,6 +109,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         }
 
         stopForeground(true);
+
+        unregisterReceiver(receiver);
 
         Toast.makeText(getApplicationContext(),
                 getText(R.string.service_stopped),

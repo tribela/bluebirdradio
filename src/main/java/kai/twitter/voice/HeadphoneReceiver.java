@@ -9,9 +9,17 @@ import android.util.Log;
  * Created by kjwon15 on 2014. 4. 3..
  */
 public class HeadphoneReceiver extends BroadcastReceiver {
+    private int firstState = -1;
+
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
             int state = intent.getIntExtra("state", -1);
+
+            if (firstState == -1) {
+                firstState = state;
+                return;
+            }
+
             // 0: headset plugged.
             // 1: headset unplugged.
             if (state == 0) {
