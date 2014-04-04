@@ -160,16 +160,16 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         @Override
         public void onStatus(Status status) {
             String text;
-            String screenName;
+            String name;
             if(status.isRetweet()) {
                 Status retweetedStatus = status.getRetweetedStatus();
-                screenName = retweetedStatus.getUser().getScreenName();
+                name = retweetedStatus.getUser().getName();
                 text = retweetedStatus.getText();
             } else {
-                screenName = status.getUser().getScreenName();
+                name = status.getUser().getName();
                 text = status.getText();
             }
-            String message = String.format("%s: %s", screenName, text);
+            String message = String.format("%s: %s", name, text);
             tts.speak(message, TextToSpeech.QUEUE_ADD, null);
         }
 
