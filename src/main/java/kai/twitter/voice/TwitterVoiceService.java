@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -34,12 +35,26 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private SharedPreferences preferences;
     private HeadphoneReceiver receiver;
 
+    private static final String SHOW = "Show";
+    private static final String STOP = "Stop";
+
     public IBinder onBind(Intent intent) {
         return null;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        String action = intent.getAction();
+        if (action != null) {
+            if (action.equals(SHOW)) {
+                Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(main);
+            } else if (action.equals(STOP)) {
+                this.stopSelf();
+            }
+        }
+
         return Service.START_STICKY;
     }
 
@@ -55,14 +70,18 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     @SuppressLint("NewApi")
     private void makeNotification() {
-        Intent intent = new Intent(this, this.getClass());
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        Intent mainIntent = new Intent(this, this.getClass());
+        Intent stopIntent = new Intent(this, this.getClass());
+        mainIntent.setAction(SHOW);
+        stopIntent.setAction(STOP);
+        PendingIntent pMainIntent = PendingIntent.getService(this, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification = new Notification.Builder(this)
                 .setContentTitle(getText(R.string.app_name))
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setContentIntent(pIntent)
+                .setContentIntent(pMainIntent)
                 .setAutoCancel(true)
-                .addAction(R.drawable.ic_launcher, "Stop", pIntent)
+                .addAction(R.drawable.ic_launcher, "Stop", pStopIntent)
                 .build();
 
         startForeground(1, notification);
