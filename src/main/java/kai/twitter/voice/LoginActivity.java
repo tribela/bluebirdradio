@@ -44,13 +44,15 @@ public class LoginActivity extends Activity {
                 if (uri.getScheme().equals(CALLBACK_URL.getScheme()) &&
                         uri.getAuthority().equals(CALLBACK_URL.getAuthority())) {
                     String oauth_verifier = uri.getQueryParameter("oauth_verifier");
-                    try {
-                        acToken = new AsyncGetAccessToken().execute(oauth_verifier).get();
-                        Toast.makeText(getApplicationContext(), acToken.toString(), Toast.LENGTH_LONG).show();
-                    } catch (Exception e) {
-                        Log.e("Twitter", e.getMessage());
-                        Toast.makeText(getApplicationContext(), "Unable to get OAuth token", Toast.LENGTH_SHORT).show();
-                        finish();
+                    if (oauth_verifier != null) {
+                        try {
+                            acToken = new AsyncGetAccessToken().execute(oauth_verifier).get();
+                            Toast.makeText(getApplicationContext(), acToken.toString(), Toast.LENGTH_LONG).show();
+                        } catch (Exception e) {
+                            Log.e("Twitter", e.getMessage());
+                            Toast.makeText(getApplicationContext(), "Unable to get OAuth token", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
                     }
                     finish();
                 }
