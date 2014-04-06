@@ -14,17 +14,18 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
-import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.auth.AccessToken;
+import twitter4j.conf.Configuration;
+import twitter4j.conf.ConfigurationBuilder;
 
 /**
  * Created by kjwon15 on 2014. 3. 30..
@@ -34,7 +35,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     private DbAdapter adapter;
     private TextToSpeech tts;
-    private TwitterStream stream;
+    private List<TwitterStream> streams;
     private Notification notification;
     private SharedPreferences preferences;
     private HeadphoneReceiver receiver;
@@ -65,6 +66,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         instance = this;
         adapter = new DbAdapter(getApplicationContext());
         tts = new TextToSpeech(this, this);
+        streams = new ArrayList<TwitterStream>();
         receiver = new HeadphoneReceiver();
         makeNotification();
         registerHeadsetReceiver();
@@ -108,14 +110,18 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                     return;
                 }
 
-                Twitter twitter = TwitterFactory.getSingleton();
-                twitter.setOAuthConsumer(getString(R.string.CONSUMER_KEY),
-                        getString(R.string.CONSUMER_SECRET));
-                twitter.setOAuthAccessToken(tokens.get(0));
-
-                stream = new TwitterStreamFactory(twitter.getConfiguration()).getInstance();
-                stream.addListener(new Listener());
-                stream.user();
+                for (AccessToken token : tokens) {
+                    Configuration conf = new ConfigurationBuilder()
+                            .setOAuthConsumerKey(getString(R.string.CONSUMER_KEY))
+                            .setOAuthConsumerSecret(getString(R.string.CONSUMER_SECRET))
+                            .setOAuthAccessToken(token.getToken())
+                            .setOAuthAccessTokenSecret(token.getTokenSecret())
+                            .build();
+                    TwitterStream stream = new TwitterStreamFactory(conf).getInstance();
+                    streams.add(stream);
+                    stream.addListener(new Listener());
+                    stream.user();
+                }
 
             }
         }).start();
@@ -129,8 +135,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             tts.shutdown();
         }
 
-        if (stream != null) {
-            stream.shutdown();
+        if (streams != null) {
+            for (TwitterStream stream : streams) {
+                stream.shutdown();
+            }
+            streams.clear();
         }
 
         stopForeground(true);
