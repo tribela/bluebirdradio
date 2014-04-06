@@ -9,14 +9,14 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
-    private Switch startServiceToggle;
+    private CompoundButton startServiceToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startServiceToggle = (Switch) findViewById(R.id.switch_start_service);
+        startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
         startServiceToggle.setOnCheckedChangeListener(this);
 
     }
