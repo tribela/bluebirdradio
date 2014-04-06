@@ -37,6 +37,10 @@
             android:name="kai.twitter.voice.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+        <activity
+            android:name="kai.twitter.voice.LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>
     </application>
 
 </manifest>

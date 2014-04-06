@@ -12,5 +12,16 @@
             android:defaultValue="true"
             />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Accounts">
+        <Preference
+            android:title="Add account"
+            android:summary="Account for bluebird radio">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="kai.twitter.voice"
+                android:targetClass="kai.twitter.voice.LoginActivity" />
+        </Preference>
+    </PreferenceCategory>
 
 </PreferenceScreen>
