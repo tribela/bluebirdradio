@@ -1,17 +1,16 @@
 package kai.twitter.voice;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -68,7 +67,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         loginTwitter();
     }
 
-    @SuppressLint("NewApi")
     private void makeNotification() {
         Intent mainIntent = new Intent(this, this.getClass());
         Intent stopIntent = new Intent(this, this.getClass());
@@ -76,7 +74,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         stopIntent.setAction(STOP);
         PendingIntent pMainIntent = PendingIntent.getService(this, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification = new Notification.Builder(this)
+        notification = new NotificationCompat.Builder(this)
                 .setContentTitle(getText(R.string.app_name))
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pMainIntent)
