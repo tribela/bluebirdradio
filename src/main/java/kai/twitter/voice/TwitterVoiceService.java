@@ -18,16 +18,18 @@ import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
+import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
-import twitter4j.conf.Configuration;
-import twitter4j.conf.ConfigurationBuilder;
+import twitter4j.auth.AccessToken;
 
 /**
  * Created by kjwon15 on 2014. 3. 30..
  */
 public class TwitterVoiceService extends Service implements OnInitListener {
     private static TwitterVoiceService instance = null;
+
     private TextToSpeech tts;
     private TwitterStream stream;
     private Notification notification;
@@ -97,15 +99,16 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         new Thread(new Runnable(){
             @Override
             public void run() {
-                ConfigurationBuilder cb = new ConfigurationBuilder();
-                cb.setOAuthConsumerKey((String) getText(R.string.CONSUMER_KEY))
-                        .setOAuthConsumerSecret((String) (getText(R.string.CONSUMER_SECRET)))
-                        .setOAuthAccessToken("268233806-fPzlywABx7sPjWUjPv24imwSrSPqKtoYqcQLYUdJ")
-                        .setOAuthAccessTokenSecret("wRL0QbxD7JOu3N1h2f79IPtCKMy0b9o8PLsOvXi8bFZXF");
+                AccessToken token = new AccessToken(
+                        "268233806-fPzlywABx7sPjWUjPv24imwSrSPqKtoYqcQLYUdJ",
+                        "wRL0QbxD7JOu3N1h2f79IPtCKMy0b9o8PLsOvXi8bFZXF");
 
-                Configuration conf = cb.build();
+                Twitter twitter = TwitterFactory.getSingleton();
+                twitter.setOAuthConsumer(getString(R.string.CONSUMER_KEY),
+                        getString(R.string.CONSUMER_SECRET));
+                twitter.setOAuthAccessToken(token);
 
-                stream = new TwitterStreamFactory(conf).getInstance();
+                stream = new TwitterStreamFactory(twitter.getConfiguration()).getInstance();
                 stream.addListener(new Listener());
                 stream.user();
 
