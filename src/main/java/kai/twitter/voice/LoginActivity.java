@@ -32,9 +32,12 @@ public class LoginActivity extends Activity {
 
         setContentView(R.layout.layout_login);
 
+
         webview = (WebView) findViewById(R.id.login_webview);
 
         webview.setWebViewClient(new WebViewClient() {
+            DbAdapter adapter = new DbAdapter(getApplicationContext());
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -47,11 +50,10 @@ public class LoginActivity extends Activity {
                     if (oauth_verifier != null) {
                         try {
                             acToken = new AsyncGetAccessToken().execute(oauth_verifier).get();
-                            Toast.makeText(getApplicationContext(), acToken.toString(), Toast.LENGTH_LONG).show();
+                            adapter.insertAccount(acToken);
                         } catch (Exception e) {
                             Log.e("Twitter", e.getMessage());
                             Toast.makeText(getApplicationContext(), "Unable to get OAuth token", Toast.LENGTH_SHORT).show();
-                            finish();
                         }
                     }
                     finish();
