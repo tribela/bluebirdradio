@@ -14,6 +14,8 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.List;
+
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -30,6 +32,7 @@ import twitter4j.auth.AccessToken;
 public class TwitterVoiceService extends Service implements OnInitListener {
     private static TwitterVoiceService instance = null;
 
+    private DbAdapter adapter;
     private TextToSpeech tts;
     private TwitterStream stream;
     private Notification notification;
@@ -48,9 +51,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         String action = intent.getAction();
         if (action != null) {
             if (action.equals(SHOW)) {
-                Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(main);
+                showMain();
             } else if (action.equals(STOP)) {
                 this.stopSelf();
             }
@@ -62,6 +63,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     @Override
     public void onCreate() {
         instance = this;
+        adapter = new DbAdapter(getApplicationContext());
         tts = new TextToSpeech(this, this);
         receiver = new HeadphoneReceiver();
         makeNotification();
@@ -99,14 +101,17 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         new Thread(new Runnable(){
             @Override
             public void run() {
-                AccessToken token = new AccessToken(
-                        "268233806-fPzlywABx7sPjWUjPv24imwSrSPqKtoYqcQLYUdJ",
-                        "wRL0QbxD7JOu3N1h2f79IPtCKMy0b9o8PLsOvXi8bFZXF");
+                List<AccessToken> tokens = adapter.getAccounts();
+                if (tokens.isEmpty()) {
+                    addAccount();
+                    stopSelf();
+                    return;
+                }
 
                 Twitter twitter = TwitterFactory.getSingleton();
                 twitter.setOAuthConsumer(getString(R.string.CONSUMER_KEY),
                         getString(R.string.CONSUMER_SECRET));
-                twitter.setOAuthAccessToken(token);
+                twitter.setOAuthAccessToken(tokens.get(0));
 
                 stream = new TwitterStreamFactory(twitter.getConfiguration()).getInstance();
                 stream.addListener(new Listener());
@@ -154,6 +159,18 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                     Toast.LENGTH_SHORT).show();
             this.stopSelf();
         }
+    }
+
+    private void showMain() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void addAccount() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private class Listener implements StatusListener {
