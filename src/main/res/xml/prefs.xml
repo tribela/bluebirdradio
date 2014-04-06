@@ -15,12 +15,12 @@
     <PreferenceCategory
         android:title="Accounts">
         <Preference
-            android:title="Add account"
+            android:title="Manage account"
             android:summary="Account for bluebird radio">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="kai.twitter.voice"
-                android:targetClass="kai.twitter.voice.LoginActivity" />
+                android:targetClass="kai.twitter.voice.ManageAccountsActivity" />
         </Preference>
     </PreferenceCategory>
 

@@ -18,7 +18,7 @@
         <activity
             android:name="kai.twitter.voice.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,14 +37,22 @@
         <activity
             android:name="kai.twitter.voice.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name="kai.twitter.voice.LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name="kai.twitter.voice.ManageAccountsActivity"
+            android:label="@string/title_activity_manage_accounts"
+            android:parentActivityName="kai.twitter.voice.SettingsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="kai.twitter.voice.SettingsActivity" />
         </activity>
     </application>
 

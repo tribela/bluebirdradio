@@ -105,7 +105,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             public void run() {
                 List<AccessToken> tokens = adapter.getAccounts();
                 if (tokens.isEmpty()) {
-                    addAccount();
+                    showManageAccounts();
                     stopSelf();
                     return;
                 }
@@ -176,8 +176,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         startActivity(intent);
     }
 
-    private void addAccount() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+    private void showManageAccounts() {
+        Intent intent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
