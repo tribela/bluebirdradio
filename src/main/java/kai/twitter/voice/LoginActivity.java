@@ -63,6 +63,11 @@ public class LoginActivity extends Activity {
 
         try {
             rqToken = new AsyncRequestTokenUrl().execute().get();
+            if (rqToken == null) {
+                Toast.makeText(getApplicationContext(), "Unable to Request OAuth token", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
             webview.loadUrl(rqToken.getAuthorizationURL());
         } catch (InterruptedException e) {
             Log.e("Twitter", e.getMessage());
@@ -81,8 +86,6 @@ public class LoginActivity extends Activity {
                 return token;
             } catch (TwitterException e) {
                 Log.e("Twitter", e.getMessage());
-                Toast.makeText(getApplicationContext(), "Unable to Request OAuth token", Toast.LENGTH_SHORT).show();
-                finish();
             }
             return null;
         }
