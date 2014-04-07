@@ -10,11 +10,14 @@ import android.widget.Switch;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
     private CompoundButton startServiceToggle;
+    private DbAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        adapter = new DbAdapter(getApplicationContext());
 
         startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
         startServiceToggle.setOnCheckedChangeListener(this);
@@ -51,11 +54,16 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
         if (startServiceToggle.getId() == compoundButton.getId()) {
-            Intent intent = new Intent(getApplicationContext(), TwitterVoiceService.class);
+            Intent serviceIntent = new Intent(getApplicationContext(), TwitterVoiceService.class);
             if (checked) {
-                startService(intent);
+                if (adapter.getAccounts().isEmpty()) {
+                    Intent accountManageIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
+                    startActivity(accountManageIntent);
+                } else {
+                    startService(serviceIntent);
+                }
             } else {
-                stopService(intent);
+                stopService(serviceIntent);
             }
         }
     }
