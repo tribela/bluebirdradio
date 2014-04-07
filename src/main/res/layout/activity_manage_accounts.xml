@@ -5,6 +5,7 @@
     android:orientation="vertical"
     >
     <ListView
+        android:id="@+id/list_accounts"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"></ListView>
     <Button

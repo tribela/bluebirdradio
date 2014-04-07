@@ -2,30 +2,54 @@ package kai.twitter.voice;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import twitter4j.auth.AccessToken;
 
 public class ManageAccountsActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Button addAccountButton;
+    private ListView listView;
+    private List<String> accounts;
+    private DbAdapter dbAdapter;
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_accounts);
 
+        accounts = new ArrayList<String>();
+        dbAdapter = new DbAdapter(getApplicationContext());
+
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, accounts);
+
+        listView = (ListView) findViewById(R.id.list_accounts);
+        listView.setAdapter(arrayAdapter);
+
         addAccountButton = (Button) findViewById(R.id.add_account_button);
         addAccountButton.setOnClickListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        accounts.clear();
+        for (AccessToken token : dbAdapter.getAccounts()) {
+            accounts.add(token.getToken());
+        }
+        arrayAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
