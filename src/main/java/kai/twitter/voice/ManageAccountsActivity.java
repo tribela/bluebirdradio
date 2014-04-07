@@ -1,11 +1,14 @@
 package kai.twitter.voice;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,6 +38,7 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
 
         listView = (ListView) findViewById(R.id.list_accounts);
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new ItemClickListener());
 
         addAccountButton = (Button) findViewById(R.id.add_account_button);
         addAccountButton.setOnClickListener(this);
@@ -76,6 +80,25 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
         if (R.id.add_account_button == view.getId()) {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
+        }
+    }
+
+    private class ItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ManageAccountsActivity.this);
+            builder
+                    .setTitle("Title")
+                    .setMessage("Message")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //TODO: delete acount.
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         }
     }
 }
