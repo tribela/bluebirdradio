@@ -47,12 +47,7 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
     @Override
     protected void onResume() {
         super.onResume();
-
-        accounts.clear();
-        for (AccessToken token : dbAdapter.getAccounts()) {
-            accounts.add(token.getToken());
-        }
-        arrayAdapter.notifyDataSetChanged();
+        refreshAccounts();
     }
 
     @Override
@@ -83,21 +78,30 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
         }
     }
 
+    private void refreshAccounts() {
+        accounts.clear();
+        for (AccessToken token : dbAdapter.getAccounts()) {
+            accounts.add(token.getToken());
+        }
+        arrayAdapter.notifyDataSetChanged();
+    }
+
     private class ItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ManageAccountsActivity.this);
             builder
-                    .setTitle("Title")
-                    .setMessage("Message")
+                    .setTitle(R.string.title_delete_account)
+                    .setMessage(R.string.message_delete_account)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            //TODO: delete acount.
+                            dbAdapter.deleteAccount(accounts.get(position));
+                            refreshAccounts();
                         }
                     })
-                    .setNegativeButton("No", null)
+                    .setNegativeButton(android.R.string.no, null)
                     .show();
         }
     }

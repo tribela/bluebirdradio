@@ -13,5 +13,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_manage_accounts">Manage accounts</string>
     <string name="add_account">Add account</string>
+    <string name="title_delete_account">Delete account?</string>
+    <string name="message_delete_account">Do you want to delete this account?</string>
 
 </resources>
