@@ -6,13 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQuery;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import twitter4j.auth.AccessToken;
 
@@ -43,7 +40,7 @@ public class DbAdapter {
             values.put(KEY_ACCESS_SECRET, token.getTokenSecret());
             db.insert(TABLE_NAME, null, values);
             return true;
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Log.e("SQLite", e.getMessage());
             return false;
         }
@@ -51,11 +48,11 @@ public class DbAdapter {
 
     public boolean deleteAccount(AccessToken token) {
         try {
-        db.delete(TABLE_NAME,
-                String.format(" %s = ? and %s = ?", KEY_ACCESS_TOKEN, KEY_ACCESS_SECRET),
-                new String[] {token.getToken(), token.getTokenSecret()});
+            db.delete(TABLE_NAME,
+                    String.format(" %s = ? and %s = ?", KEY_ACCESS_TOKEN, KEY_ACCESS_SECRET),
+                    new String[]{token.getToken(), token.getTokenSecret()});
             return true;
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Log.e("SQLite", e.getMessage());
             return false;
         }
@@ -65,9 +62,9 @@ public class DbAdapter {
         try {
             db.delete(TABLE_NAME,
                     KEY_ACCESS_TOKEN + " = ?",
-                    new String[] {accessToken});
+                    new String[]{accessToken});
             return true;
-        } catch(SQLiteException e) {
+        } catch (SQLiteException e) {
             Log.e("SQLite", e.getMessage());
             return false;
         }
@@ -76,7 +73,7 @@ public class DbAdapter {
     public List<AccessToken> getAccounts() {
         List<AccessToken> accounts = new ArrayList<AccessToken>();
         Cursor cursor = db.query(TABLE_NAME,
-                new String[] {KEY_ACCESS_TOKEN, KEY_ACCESS_SECRET},
+                new String[]{KEY_ACCESS_TOKEN, KEY_ACCESS_SECRET},
                 null, null, null, null, null);
         if (cursor.moveToFirst()) {
             int indexToken = cursor.getColumnIndex(KEY_ACCESS_TOKEN);

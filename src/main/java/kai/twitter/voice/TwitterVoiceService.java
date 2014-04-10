@@ -101,7 +101,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     }
 
     private void loginTwitter() {
-        new Thread(new Runnable(){
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 List<AccessToken> tokens = adapter.getAccounts();
@@ -189,7 +189,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         public void onStatus(Status status) {
             String text;
             String name;
-            if(status.isRetweet()) {
+            if (status.isRetweet()) {
                 Status retweetedStatus = status.getRetweetedStatus();
                 name = retweetedStatus.getUser().getName();
                 text = retweetedStatus.getText();

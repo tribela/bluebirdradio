@@ -11,12 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import kai.twitter.voice.R;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.auth.AccessToken;
 
 /**
  * Created by kjwon15 on 2014. 4. 10..

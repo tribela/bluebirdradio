@@ -1,9 +1,9 @@
 package kai.twitter.voice;
 
+import android.app.ActionBar;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.app.ActionBar;
 
 public class SettingsActivity extends PreferenceActivity {
 
