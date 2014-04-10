@@ -86,7 +86,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setContentIntent(pMainIntent)
                 .setAutoCancel(true)
-                .addAction(R.drawable.ic_launcher, "Stop", pStopIntent)
+                .addAction(android.R.drawable.ic_menu_close_clear_cancel, "Stop", pStopIntent)
                 .build();
 
         startForeground(1, notification);
