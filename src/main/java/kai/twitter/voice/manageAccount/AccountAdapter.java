@@ -1,6 +1,7 @@
 package kai.twitter.voice.manageAccount;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,9 +61,16 @@ public class AccountAdapter extends BaseAdapter {
 
         try {
             String screenName = new AsyncGetScreenName().execute(account).get();
-            name.setText(screenName);
-            loggedIn.setText(context.getString(R.string.logged_in));
+            if (screenName != null) {
+                view.setBackgroundColor(Color.TRANSPARENT);
+                name.setText(screenName);
+                loggedIn.setText(context.getString(R.string.logged_in));
+            } else {
+                view.setBackgroundColor(Color.GRAY);
+                loggedIn.setText(context.getString(R.string.not_logged_in));
+            }
         } catch (Exception e) {
+            view.setBackgroundColor(Color.GRAY);
             loggedIn.setText(context.getString(R.string.not_logged_in));
             Log.e("Twitter", e.getMessage());
         }
