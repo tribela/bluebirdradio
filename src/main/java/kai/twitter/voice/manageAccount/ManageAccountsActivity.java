@@ -1,43 +1,49 @@
-package kai.twitter.voice;
+package kai.twitter.voice.manageAccount;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import kai.twitter.voice.DbAdapter;
+import kai.twitter.voice.LoginActivity;
+import kai.twitter.voice.R;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 
 public class ManageAccountsActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Button addAccountButton;
     private ListView listView;
-    private List<String> accounts;
+    private List<Twitter> accounts;
     private DbAdapter dbAdapter;
-    private ArrayAdapter<String> arrayAdapter;
+    private AccountAdapter accountAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_accounts);
 
-        accounts = new ArrayList<String>();
+        accounts = new ArrayList<Twitter>();
         dbAdapter = new DbAdapter(getApplicationContext());
 
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, accounts);
+        accountAdapter = new AccountAdapter(this, accounts);
 
         listView = (ListView) findViewById(R.id.list_accounts);
-        listView.setAdapter(arrayAdapter);
+        listView.setAdapter(accountAdapter);
         listView.setOnItemClickListener(new ItemClickListener());
 
         addAccountButton = (Button) findViewById(R.id.add_account_button);
@@ -52,7 +58,7 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.manage_accounts, menu);
         return true;
@@ -81,9 +87,12 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
     private void refreshAccounts() {
         accounts.clear();
         for (AccessToken token : dbAdapter.getAccounts()) {
-            accounts.add(token.getToken());
+            Twitter twitter = new TwitterFactory().getInstance();
+            twitter.setOAuthConsumer(getString(R.string.CONSUMER_KEY), getString(R.string.CONSUMER_SECRET));
+            twitter.setOAuthAccessToken(token);
+            accounts.add(twitter);
         }
-        arrayAdapter.notifyDataSetChanged();
+        accountAdapter.notifyDataSetChanged();
     }
 
     private class ItemClickListener implements AdapterView.OnItemClickListener {
@@ -97,7 +106,11 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            dbAdapter.deleteAccount(accounts.get(position));
+                            try {
+                                dbAdapter.deleteAccount(accounts.get(position).getOAuthAccessToken());
+                            } catch (TwitterException e) {
+                                Log.e("Twitter", "Cannot remove account");
+                            }
                             refreshAccounts();
                         }
                     })

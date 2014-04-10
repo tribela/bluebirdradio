@@ -48,7 +48,7 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="kai.twitter.voice.ManageAccountsActivity"
+            android:name=".manageAccount.ManageAccountsActivity"
             android:label="@string/title_activity_manage_accounts"
             android:parentActivityName="kai.twitter.voice.SettingsActivity" >
             <meta-data

@@ -6,7 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
-import android.widget.Switch;
+
+import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
     private CompoundButton startServiceToggle;

@@ -20,7 +20,7 @@
             <intent
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="kai.twitter.voice"
-                android:targetClass="kai.twitter.voice.ManageAccountsActivity" />
+                android:targetClass="kai.twitter.voice.manageAccount.ManageAccountsActivity" />
         </Preference>
     </PreferenceCategory>
 
