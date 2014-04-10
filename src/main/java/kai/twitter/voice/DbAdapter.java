@@ -52,8 +52,20 @@ public class DbAdapter {
     public boolean deleteAccount(AccessToken token) {
         try {
         db.delete(TABLE_NAME,
-                KEY_ACCESS_TOKEN + " = ?",
-                new String[] {token.getToken()});
+                String.format(" %s = ? and %s = ?", KEY_ACCESS_TOKEN, KEY_ACCESS_SECRET),
+                new String[] {token.getToken(), token.getTokenSecret()});
+            return true;
+        } catch(SQLiteException e) {
+            Log.e("SQLite", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean deleteAccount(String accessToken) {
+        try {
+            db.delete(TABLE_NAME,
+                    KEY_ACCESS_TOKEN + " = ?",
+                    new String[] {accessToken});
             return true;
         } catch(SQLiteException e) {
             Log.e("SQLite", e.getMessage());

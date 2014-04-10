@@ -1,11 +1,14 @@
 package kai.twitter.voice;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,6 +38,7 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
 
         listView = (ListView) findViewById(R.id.list_accounts);
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new ItemClickListener());
 
         addAccountButton = (Button) findViewById(R.id.add_account_button);
         addAccountButton.setOnClickListener(this);
@@ -43,12 +47,7 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
     @Override
     protected void onResume() {
         super.onResume();
-
-        accounts.clear();
-        for (AccessToken token : dbAdapter.getAccounts()) {
-            accounts.add(token.getToken());
-        }
-        arrayAdapter.notifyDataSetChanged();
+        refreshAccounts();
     }
 
     @Override
@@ -76,6 +75,34 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
         if (R.id.add_account_button == view.getId()) {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
+        }
+    }
+
+    private void refreshAccounts() {
+        accounts.clear();
+        for (AccessToken token : dbAdapter.getAccounts()) {
+            accounts.add(token.getToken());
+        }
+        arrayAdapter.notifyDataSetChanged();
+    }
+
+    private class ItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, final int position, long id) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ManageAccountsActivity.this);
+            builder
+                    .setTitle(R.string.title_delete_account)
+                    .setMessage(R.string.message_delete_account)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dbAdapter.deleteAccount(accounts.get(position));
+                            refreshAccounts();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .show();
         }
     }
 }
