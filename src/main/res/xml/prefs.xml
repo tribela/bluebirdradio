@@ -7,16 +7,16 @@
 
         <CheckBoxPreference
             android:key="stop_on_unplugged"
-            android:title="Stop on headset unplugged"
-            android:summary="Stop twitter voice when headset unplugged"
+            android:title="@string/title_stop_on_unplugged"
+            android:summary="@string/summary_stop_on_unplugged"
             android:defaultValue="true"
             />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Accounts">
         <Preference
-            android:title="Manage account"
-            android:summary="Account for bluebird radio">
+            android:title="@string/title_manage_account"
+            android:summary="@string/summary_manage_account">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="kai.twitter.voice"
