@@ -84,7 +84,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         notification = new NotificationCompat.Builder(this)
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setContentTitle(getText(R.string.app_name))
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_notify_service)
                 .setContentIntent(pMainIntent)
                 .setAutoCancel(true)
                 .addAction(android.R.drawable.ic_menu_close_clear_cancel, "Stop", pStopIntent)
