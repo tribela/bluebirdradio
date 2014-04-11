@@ -52,8 +52,13 @@ public class LoginActivity extends Activity {
                             acToken = new AsyncGetAccessToken().execute(oauth_verifier).get();
                             adapter.insertAccount(acToken);
                         } catch (Exception e) {
+                            String errorMsg = getString(R.string.unable_get_oauth_token);
+                            String msg = e.getMessage();
+                            if (msg == null) {
+                                msg = errorMsg;
+                            }
                             Log.e("Twitter", e.getMessage());
-                            Toast.makeText(getApplicationContext(), "Unable to get OAuth token", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
                         }
                     }
                     finish();
