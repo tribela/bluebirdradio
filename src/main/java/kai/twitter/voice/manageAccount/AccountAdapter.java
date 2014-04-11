@@ -29,7 +29,6 @@ public class AccountAdapter extends BaseAdapter {
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.accounts = accounts;
-        this.layout = layout;
     }
 
     @Override
