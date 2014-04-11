@@ -23,4 +23,6 @@
     <string name="summary_manage_account">Manage accounts for Bluebird Radio</string>
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
 
+    <string name="AD_UNIT_ID">a15346189d2aa3e</string>
+
 </resources>
