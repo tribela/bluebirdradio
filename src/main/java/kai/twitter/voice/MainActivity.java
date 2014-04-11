@@ -7,11 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
     private CompoundButton startServiceToggle;
     private DbAdapter adapter;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +27,40 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
         startServiceToggle.setOnCheckedChangeListener(this);
 
+        //Create an ad.
+        adView = (AdView) findViewById(R.id.adView);
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
+
+    }
+
+    @Override
+    protected void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         startServiceToggle.setChecked(TwitterVoiceService.isRunning());
+        if (adView != null) {
+            adView.resume();
+        }
     }
 
+    @Override
+    protected void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
