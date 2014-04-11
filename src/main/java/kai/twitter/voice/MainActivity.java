@@ -32,7 +32,6 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
 
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("9F7ABB8B4ECEA16754A7E600DEBB7E6D")
                 .build();
         adView.loadAd(adRequest);
 
