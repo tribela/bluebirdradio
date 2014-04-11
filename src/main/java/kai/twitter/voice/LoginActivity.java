@@ -1,6 +1,8 @@
 package kai.twitter.voice;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,12 +21,11 @@ import twitter4j.auth.RequestToken;
 
 public class LoginActivity extends Activity {
 
+    private final static Uri CALLBACK_URL = Uri.parse("bluebird://callback");
     private WebView webview;
     private Twitter twitter;
     private AccessToken acToken;
     private RequestToken rqToken;
-
-    private final static Uri CALLBACK_URL = Uri.parse("bluebird://callback");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,29 +67,40 @@ public class LoginActivity extends Activity {
             }
         });
 
-        try {
-            rqToken = new AsyncRequestTokenUrl().execute().get();
-            if (rqToken == null) {
-                Toast.makeText(getApplicationContext(), "Unable to Request OAuth token", Toast.LENGTH_SHORT).show();
-                finish();
-                return;
-            }
-            webview.loadUrl(rqToken.getAuthorizationURL());
-        } catch (InterruptedException e) {
-            Log.e("Twitter", e.getMessage());
-        } catch (ExecutionException e) {
-            Log.e("Twitter", e.getMessage());
-        }
+        new AsyncRequestTokenUrl(this).execute();
     }
 
-    private class AsyncRequestTokenUrl extends AsyncTask<String, Void, RequestToken> {
+    private class AsyncRequestTokenUrl extends AsyncTask<String, Void, Void> {
+        private Context context;
+        private ProgressDialog processDialog;
+        private RequestToken token;
+
+        public AsyncRequestTokenUrl(Context context) {
+            this.context = context;
+        }
+
         @Override
-        protected RequestToken doInBackground(String... strings) {
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            processDialog = new ProgressDialog(context);
+            processDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            processDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            processDialog.dismiss();
+            webview.loadUrl(token.getAuthorizationURL());
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
             try {
                 twitter = new TwitterFactory().getInstance();
                 twitter.setOAuthConsumer(getString(R.string.CONSUMER_KEY), getString(R.string.CONSUMER_SECRET));
-                RequestToken token = twitter.getOAuthRequestToken(CALLBACK_URL.toString());
-                return token;
+                token = twitter.getOAuthRequestToken(CALLBACK_URL.toString());
             } catch (TwitterException e) {
                 Log.e("Twitter", e.getMessage());
             }
@@ -107,6 +119,7 @@ public class LoginActivity extends Activity {
             }
             return null;
         }
+
     }
 
 }
