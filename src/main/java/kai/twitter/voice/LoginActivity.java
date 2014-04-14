@@ -48,7 +48,7 @@ public class LoginActivity extends Activity {
                 if (uri.getScheme().equals(CALLBACK_URL.getScheme()) &&
                         uri.getAuthority().equals(CALLBACK_URL.getAuthority())) {
                     String oauth_verifier = uri.getQueryParameter("oauth_verifier");
-                    if (oauth_verifier != null) {
+                    if (oauth_verifier != null && acToken == null) {
                         try {
                             acToken = new AsyncGetAccessToken().execute(oauth_verifier).get();
                             adapter.insertAccount(acToken);
@@ -58,11 +58,12 @@ public class LoginActivity extends Activity {
                             if (msg == null) {
                                 msg = errorMsg;
                             }
-                            Log.e("Twitter", e.getMessage());
+                            Log.e("Twitter", msg);
                             Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
                         }
                     }
                     finish();
+                    return;
                 }
             }
         });
@@ -73,7 +74,6 @@ public class LoginActivity extends Activity {
     private class AsyncRequestTokenUrl extends AsyncTask<String, Void, Void> {
         private Context context;
         private ProgressDialog processDialog;
-        private RequestToken token;
 
         public AsyncRequestTokenUrl(Context context) {
             this.context = context;
@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             processDialog.dismiss();
-            webview.loadUrl(token.getAuthorizationURL());
+            webview.loadUrl(rqToken.getAuthorizationURL());
         }
 
         @Override
@@ -100,7 +100,7 @@ public class LoginActivity extends Activity {
             try {
                 twitter = new TwitterFactory().getInstance();
                 twitter.setOAuthConsumer(getString(R.string.CONSUMER_KEY), getString(R.string.CONSUMER_SECRET));
-                token = twitter.getOAuthRequestToken(CALLBACK_URL.toString());
+                rqToken = twitter.getOAuthRequestToken(CALLBACK_URL.toString());
             } catch (TwitterException e) {
                 Log.e("Twitter", e.getMessage());
             }
