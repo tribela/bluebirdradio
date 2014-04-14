@@ -83,6 +83,7 @@ public class AccountAdapter extends BaseAdapter {
             try {
                 return twitter.getScreenName();
             } catch (TwitterException e) {
+                Log.e("Twitter", e.getMessage());
                 return null;
             }
         }
