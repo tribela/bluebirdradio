@@ -50,12 +50,14 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String action = intent.getAction();
-        if (action != null) {
-            if (action.equals(SHOW)) {
-                showMain();
-            } else if (action.equals(STOP)) {
-                this.stopSelf();
+        if (intent != null) {
+            String action = intent.getAction();
+            if (action != null) {
+                if (action.equals(SHOW)) {
+                    showMain();
+                } else if (action.equals(STOP)) {
+                    this.stopSelf();
+                }
             }
         }
 
