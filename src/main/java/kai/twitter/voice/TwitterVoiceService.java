@@ -32,20 +32,21 @@ import twitter4j.conf.ConfigurationBuilder;
  * Created by kjwon15 on 2014. 3. 30..
  */
 public class TwitterVoiceService extends Service implements OnInitListener {
+    private static final String SHOW = "Show";
+    private static final String STOP = "Stop";
     private static TwitterVoiceService instance = null;
-
     private DbAdapter adapter;
     private TextToSpeech tts;
     private List<TwitterStream> streams;
     private Notification notification;
     private SharedPreferences preferences;
     private HeadphoneReceiver receiver;
-
-    private static final String SHOW = "Show";
-    private static final String STOP = "Stop";
-
     private boolean opt_speak_screenname;
     private boolean opt_stop_on_unplugged;
+
+    public static boolean isRunning() {
+        return instance != null;
+    }
 
     public IBinder onBind(Intent intent) {
         return null;
@@ -172,10 +173,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         Toast.makeText(getApplicationContext(),
                 getText(R.string.service_stopped),
                 Toast.LENGTH_SHORT).show();
-    }
-
-    public static boolean isRunning() {
-        return instance != null;
     }
 
     @Override
