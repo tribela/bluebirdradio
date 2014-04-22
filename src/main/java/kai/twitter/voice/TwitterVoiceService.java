@@ -90,6 +90,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             }
         };
         preferences.registerOnSharedPreferenceChangeListener(listener);
+        readConfig();
     }
 
     private void readConfig() {
