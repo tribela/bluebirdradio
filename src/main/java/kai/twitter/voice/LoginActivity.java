@@ -11,8 +11,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import java.util.concurrent.ExecutionException;
-
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -92,7 +90,12 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             processDialog.dismiss();
-            webview.loadUrl(rqToken.getAuthorizationURL());
+            if (rqToken != null) {
+                webview.loadUrl(rqToken.getAuthorizationURL());
+            } else {
+                Toast.makeText(context, getString(R.string.unable_get_oauth_token), Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
 
         @Override
