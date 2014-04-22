@@ -44,6 +44,9 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private static final String SHOW = "Show";
     private static final String STOP = "Stop";
 
+    private boolean opt_speak_screenname;
+    private boolean opt_stop_on_unplugged;
+
     public IBinder onBind(Intent intent) {
         return null;
     }
@@ -72,8 +75,25 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         streams = new ArrayList<TwitterStream>();
         receiver = new HeadphoneReceiver();
         makeNotification();
+        initConfig();
         registerHeadsetReceiver();
         loginTwitter();
+    }
+
+    private void initConfig() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                readConfig();
+            }
+        };
+        preferences.registerOnSharedPreferenceChangeListener(listener);
+    }
+
+    private void readConfig() {
+        opt_speak_screenname = preferences.getBoolean("speak_screenname", false);
+        opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
     }
 
     private void makeNotification() {
@@ -96,8 +116,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     }
 
     private void registerHeadsetReceiver() {
-        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (preferences.getBoolean("stop_on_unplugged", true)) {
+        if (opt_stop_on_unplugged) {
             IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
             registerReceiver(receiver, filter);
         }
@@ -194,10 +213,18 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             String name;
             if (status.isRetweet()) {
                 Status retweetedStatus = status.getRetweetedStatus();
-                name = retweetedStatus.getUser().getName();
+                if (opt_speak_screenname) {
+                    name = retweetedStatus.getUser().getScreenName();
+                } else {
+                    name = retweetedStatus.getUser().getName();
+                }
                 text = retweetedStatus.getText();
             } else {
-                name = status.getUser().getName();
+                if (opt_speak_screenname) {
+                    name = status.getUser().getScreenName();
+                } else {
+                    name = status.getUser().getName();
+                }
                 text = status.getText();
             }
             String message = String.format("%s: %s", name, text);

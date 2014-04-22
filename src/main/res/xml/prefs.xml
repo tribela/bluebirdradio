@@ -11,6 +11,11 @@
             android:summary="@string/summary_stop_on_unplugged"
             android:defaultValue="true"
             />
+        <CheckBoxPreference
+            android:key="speak_screenname"
+            android:title="@string/title_speak_screenname"
+            android:summary="@string/summary_speak_screenname"
+            android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Accounts">

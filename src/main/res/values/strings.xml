@@ -21,6 +21,9 @@
     <string name="summary_stop_on_unplugged">Stop Bluebird Radio when headset unplugged</string>
     <string name="title_manage_account">Manage accounts</string>
     <string name="summary_manage_account">Manage accounts for Bluebird Radio</string>
+    <string name="title_speak_screenname">Speak screen name</string>
+    <string name="summary_speak_screenname">Speak screen name instead of account name</string>
+
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
 
     <string name="AD_UNIT_ID">a15346189d2aa3e</string>
