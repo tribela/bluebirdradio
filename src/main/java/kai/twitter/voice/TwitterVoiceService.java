@@ -43,6 +43,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private Notification notification;
     private SharedPreferences preferences;
     private HeadphoneReceiver headphoneReceiver;
+    private boolean headphoneReceiverOn = false;
     private PrefChangeListener prefChangeListener;
     private boolean opt_speak_screenname;
     private boolean opt_stop_on_unplugged;
@@ -108,10 +109,16 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
 
         if (opt_stop_on_unplugged) {
-            IntentFilter headphoneFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-            registerReceiver(headphoneReceiver, headphoneFilter);
+            if (headphoneReceiverOn == false) {
+                headphoneReceiverOn = true;
+                IntentFilter headphoneFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+                registerReceiver(headphoneReceiver, headphoneFilter);
+            }
         } else {
-            unregisterReceiver(headphoneReceiver);
+            if (headphoneReceiverOn) {
+                headphoneReceiverOn = false;
+                unregisterReceiver(headphoneReceiver);
+            }
         }
     }
 
@@ -186,10 +193,9 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         stopForeground(true);
 
-        try {
+        if(headphoneReceiverOn) {
+            headphoneReceiverOn = false;
             unregisterReceiver(headphoneReceiver);
-        } catch (IllegalArgumentException e) {
-            Log.d("Receiver", e.getMessage());
         }
 
         unregisterReceiver(prefChangeListener);
