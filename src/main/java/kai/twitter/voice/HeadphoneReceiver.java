@@ -29,4 +29,8 @@ public class HeadphoneReceiver extends BroadcastReceiver {
             }
         }
     }
+
+    public void reset() {
+        firstState = -1;
+    }
 }

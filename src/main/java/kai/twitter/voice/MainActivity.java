@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 
 import com.google.android.gms.ads.AdRequest;
@@ -15,7 +16,7 @@ import com.google.android.gms.ads.AdView;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 
-public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
     private CompoundButton startServiceToggle;
     private DbAdapter adapter;
     private AdView adView;
@@ -29,7 +30,7 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         adapter = new DbAdapter(getApplicationContext());
 
         startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
-        startServiceToggle.setOnCheckedChangeListener(this);
+        startServiceToggle.setOnClickListener(this);
 
         serviceReceiver = new ServiceReceiver();
         IntentFilter filter = new IntentFilter();
@@ -94,10 +95,10 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-        if (startServiceToggle.getId() == compoundButton.getId()) {
+    public void onClick(View view) {
+        if (startServiceToggle.getId() == view.getId()) {
             Intent serviceIntent = new Intent(getApplicationContext(), TwitterVoiceService.class);
-            if (checked) {
+            if (startServiceToggle.isChecked()) {
                 if (adapter.getAccounts().isEmpty()) {
                     Intent accountManageIntent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
                     startActivity(accountManageIntent);

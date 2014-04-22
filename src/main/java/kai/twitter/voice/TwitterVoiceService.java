@@ -81,7 +81,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         headphoneReceiver = new HeadphoneReceiver();
         makeNotification();
         initConfig();
-        registerHeadsetReceiver();
         loginTwitter();
         broadcastService(true);
     }
@@ -108,18 +107,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         opt_speak_screenname = preferences.getBoolean("speak_screenname", false);
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
 
-        if (opt_stop_on_unplugged) {
-            if (headphoneReceiverOn == false) {
-                headphoneReceiverOn = true;
-                IntentFilter headphoneFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-                registerReceiver(headphoneReceiver, headphoneFilter);
-            }
-        } else {
-            if (headphoneReceiverOn) {
-                headphoneReceiverOn = false;
-                unregisterReceiver(headphoneReceiver);
-            }
-        }
+        registerHeadsetReceiver();
     }
 
     private void makeNotification() {
@@ -143,8 +131,17 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     private void registerHeadsetReceiver() {
         if (opt_stop_on_unplugged) {
-            IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-            registerReceiver(headphoneReceiver, filter);
+            if (headphoneReceiverOn == false) {
+                headphoneReceiverOn = true;
+                IntentFilter headphoneFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+                headphoneReceiver.reset();
+                registerReceiver(headphoneReceiver, headphoneFilter);
+            }
+        } else {
+            if (headphoneReceiverOn) {
+                headphoneReceiverOn = false;
+                unregisterReceiver(headphoneReceiver);
+            }
         }
     }
 
@@ -193,7 +190,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         stopForeground(true);
 
-        if(headphoneReceiverOn) {
+        if (headphoneReceiverOn) {
             headphoneReceiverOn = false;
             unregisterReceiver(headphoneReceiver);
         }
