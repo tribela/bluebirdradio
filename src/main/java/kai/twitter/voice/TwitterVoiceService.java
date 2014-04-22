@@ -168,7 +168,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         stopForeground(true);
 
-        unregisterReceiver(receiver);
+        try {
+            unregisterReceiver(receiver);
+        } catch(IllegalArgumentException e) {
+            Log.d("Receiver", e.getMessage());
+        }
 
         Toast.makeText(getApplicationContext(),
                 getText(R.string.service_stopped),
