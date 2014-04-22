@@ -82,6 +82,15 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         initConfig();
         registerHeadsetReceiver();
         loginTwitter();
+        broadcastService(true);
+    }
+
+    private void broadcastService(boolean started) {
+        Intent intent = new Intent();
+        intent.setAction(getResources().getString(R.string.ACTION_SERVICE_TOGGLE));
+        intent.putExtra("STARTED", started);
+
+        sendBroadcast(intent);
     }
 
     private void initConfig() {
@@ -188,6 +197,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         Toast.makeText(getApplicationContext(),
                 getText(R.string.service_stopped),
                 Toast.LENGTH_SHORT).show();
+
+        broadcastService(false);
     }
 
     @Override

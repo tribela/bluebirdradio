@@ -1,6 +1,9 @@
 package kai.twitter.voice;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -16,6 +19,7 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
     private CompoundButton startServiceToggle;
     private DbAdapter adapter;
     private AdView adView;
+    private ServiceReceiver serviceReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,11 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
 
         startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
         startServiceToggle.setOnCheckedChangeListener(this);
+
+        serviceReceiver = new ServiceReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(getResources().getString(R.string.ACTION_SERVICE_TOGGLE));
+        registerReceiver(serviceReceiver, filter);
 
         //Create an ad.
         adView = (AdView) findViewById(R.id.adView);
@@ -56,6 +65,8 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
 
     @Override
     protected void onDestroy() {
+        unregisterReceiver(serviceReceiver);
+
         if (adView != null) {
             adView.destroy();
         }
@@ -96,6 +107,15 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
             } else {
                 stopService(serviceIntent);
             }
+        }
+    }
+
+    private class ServiceReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            boolean started = intent.getBooleanExtra("STARTED", false);
+            startServiceToggle.setChecked(started);
         }
     }
 }

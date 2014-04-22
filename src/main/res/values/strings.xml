@@ -30,5 +30,6 @@
 
 
     <string name="ACTION_CHANGE_PREFERENCE">ACTION_CHANGE_PREFERENCE</string>
+    <string name="ACTION_SERVICE_TOGGLE">ACTION_SERVICE_TOGGLE</string>
 
 </resources>
