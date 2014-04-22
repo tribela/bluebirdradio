@@ -28,4 +28,7 @@
 
     <string name="AD_UNIT_ID">a15346189d2aa3e</string>
 
+
+    <string name="ACTION_CHANGE_PREFERENCE">ACTION_CHANGE_PREFERENCE</string>
+
 </resources>

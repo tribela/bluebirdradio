@@ -3,6 +3,8 @@ package kai.twitter.voice;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -40,7 +42,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private List<TwitterStream> streams;
     private Notification notification;
     private SharedPreferences preferences;
-    private HeadphoneReceiver receiver;
+    private HeadphoneReceiver headphoneReceiver;
+    private PrefChangeListener prefChangeListener;
     private boolean opt_speak_screenname;
     private boolean opt_stop_on_unplugged;
 
@@ -74,7 +77,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         adapter = new DbAdapter(getApplicationContext());
         tts = new TextToSpeech(this, this);
         streams = new ArrayList<TwitterStream>();
-        receiver = new HeadphoneReceiver();
+        headphoneReceiver = new HeadphoneReceiver();
         makeNotification();
         initConfig();
         registerHeadsetReceiver();
@@ -83,19 +86,24 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     private void initConfig() {
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                readConfig();
-            }
-        };
-        preferences.registerOnSharedPreferenceChangeListener(listener);
         readConfig();
+
+        prefChangeListener = new PrefChangeListener();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(getResources().getString(R.string.ACTION_CHANGE_PREFERENCE));
+        registerReceiver(prefChangeListener, filter);
     }
 
     private void readConfig() {
         opt_speak_screenname = preferences.getBoolean("speak_screenname", false);
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
+
+        if (opt_stop_on_unplugged) {
+            IntentFilter headphoneFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+            registerReceiver(headphoneReceiver, headphoneFilter);
+        } else {
+            unregisterReceiver(headphoneReceiver);
+        }
     }
 
     private void makeNotification() {
@@ -120,7 +128,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private void registerHeadsetReceiver() {
         if (opt_stop_on_unplugged) {
             IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-            registerReceiver(receiver, filter);
+            registerReceiver(headphoneReceiver, filter);
         }
     }
 
@@ -170,10 +178,12 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         stopForeground(true);
 
         try {
-            unregisterReceiver(receiver);
-        } catch(IllegalArgumentException e) {
+            unregisterReceiver(headphoneReceiver);
+        } catch (IllegalArgumentException e) {
             Log.d("Receiver", e.getMessage());
         }
+
+        unregisterReceiver(prefChangeListener);
 
         Toast.makeText(getApplicationContext(),
                 getText(R.string.service_stopped),
@@ -205,6 +215,17 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         Intent intent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private class PrefChangeListener extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String name = intent.getAction();
+            if (name.equals(getResources().getString(R.string.ACTION_CHANGE_PREFERENCE))) {
+                readConfig();
+            }
+        }
     }
 
     private class Listener implements StatusListener {
