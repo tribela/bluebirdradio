@@ -21,6 +21,8 @@
     <string name="summary_manage_account">Manage accounts for Bluebird Radio</string>
     <string name="title_speak_screenname">Speak screen name</string>
     <string name="summary_speak_screenname">Speak screen name instead of account name</string>
+    <string name="title_mute_time">Mute same tweet in duration.</string>
+    <string name="summary_mute_time">write in seconds</string>
 
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
     <string name="retweeted_by">Retweeted by {0}.</string>

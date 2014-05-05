@@ -28,5 +28,13 @@
                 android:targetClass="kai.twitter.voice.manageAccount.ManageAccountsActivity" />
         </Preference>
     </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Misc">
+        <EditTextPreference
+            android:key="mute_time"
+            android:title="@string/title_mute_time"
+            android:summary="@string/summary_mute_time"
+            android:defaultValue="60" />
+    </PreferenceCategory>
 
 </PreferenceScreen>

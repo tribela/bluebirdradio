@@ -51,6 +51,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private PrefChangeListener prefChangeListener;
     private boolean opt_speak_screenname;
     private boolean opt_stop_on_unplugged;
+    private int opt_mute_time;
 
     public static boolean isRunning() {
         return instance != null;
@@ -83,9 +84,9 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         tts = new TextToSpeech(this, this);
         streams = new ArrayList<TwitterStream>();
         headphoneReceiver = new HeadphoneReceiver();
-        statusManager = new StatusManager(60);
-        makeNotification();
         initConfig();
+        statusManager = new StatusManager(opt_mute_time);
+        makeNotification();
         loginTwitter();
         broadcastService(true);
     }
@@ -111,6 +112,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private void readConfig() {
         opt_speak_screenname = preferences.getBoolean("speak_screenname", false);
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
+        opt_mute_time = Integer.parseInt(preferences.getString("mute_time", "60"));
 
         registerHeadsetReceiver();
     }
