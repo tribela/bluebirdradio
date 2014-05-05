@@ -2,39 +2,35 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="Preferences">
 
-    <PreferenceCategory
-        android:title="Options">
+    <PreferenceCategory android:title="Options">
 
         <CheckBoxPreference
-            android:key="stop_on_unplugged"
-            android:title="@string/title_stop_on_unplugged"
-            android:summary="@string/summary_stop_on_unplugged"
             android:defaultValue="true"
-            />
+            android:key="stop_on_unplugged"
+            android:summary="@string/summary_stop_on_unplugged"
+            android:title="@string/title_stop_on_unplugged" />
         <CheckBoxPreference
+            android:defaultValue="false"
             android:key="speak_screenname"
-            android:title="@string/title_speak_screenname"
             android:summary="@string/summary_speak_screenname"
-            android:defaultValue="false" />
+            android:title="@string/title_speak_screenname" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="Accounts">
+    <PreferenceCategory android:title="Accounts">
         <Preference
-            android:title="@string/title_manage_account"
-            android:summary="@string/summary_manage_account">
+            android:summary="@string/summary_manage_account"
+            android:title="@string/title_manage_account">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:targetPackage="kai.twitter.voice"
-                android:targetClass="kai.twitter.voice.manageAccount.ManageAccountsActivity" />
+                android:targetClass="kai.twitter.voice.manageAccount.ManageAccountsActivity"
+                android:targetPackage="kai.twitter.voice" />
         </Preference>
     </PreferenceCategory>
-    <PreferenceCategory
-        android:title="Misc">
+    <PreferenceCategory android:title="Misc">
         <EditTextPreference
+            android:defaultValue="60"
             android:key="mute_time"
-            android:title="@string/title_mute_time"
             android:summary="@string/summary_mute_time"
-            android:defaultValue="60" />
+            android:title="@string/title_mute_time" />
     </PreferenceCategory>
 
 </PreferenceScreen>
