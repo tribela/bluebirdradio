@@ -4,8 +4,8 @@
     <string name="app_name"> 파랑새 라디오</string>
     <string name="action_settings">설정</string>
     <string name="start_service">시작</string>
-    <string name="service_started">서비스 시작됨.</string>
-    <string name="service_stopped">서비스 종료됨.</string>
+    <string name="service_started">라디오 시작됨.</string>
+    <string name="service_stopped">라디오 종료됨.</string>
     <string name="initialize_failed"> 초기화 실패.</string>
     <string name="title_activity_settings">설정</string>
     <string name="title_activity_login">로그인</string>
@@ -18,7 +18,7 @@
     <string name="title_stop_on_unplugged">헤드폰 제거시 멈추기</string>
     <string name="summary_stop_on_unplugged">헤드폰을 제거할 때 블루버드 라디오를 종료합니다.</string>
     <string name="title_manage_account">계정 관리</string>
-    <string name="summary_manage_account">블루버드 라디오에 사용 할 계정을 관리 합니다.</string>
+    <string name="summary_manage_account"> 파랑새 라디오에 사용 할 계정을 관리 합니다.</string>
     <string name="title_speak_screenname">아이디 말하기</string>
     <string name="summary_speak_screenname">닉네임 대신 아이디를 말합니다. (일본어 닉네임 등  TTS가 읽지 못하는 경우)</string>
 
