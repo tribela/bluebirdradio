@@ -31,6 +31,12 @@
             android:key="mute_time"
             android:summary="@string/summary_mute_time"
             android:title="@string/title_mute_time" />
+        <Preference android:title="Open source licenses">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="kai.twitter.voice.ViewLicenses"
+                android:targetPackage="kai.twitter.voice" />
+        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>
