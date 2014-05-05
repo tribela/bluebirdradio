@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
+import kai.twitter.voice.tweetFilter.StatusManager;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -39,6 +40,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private static final String SHOW = "Show";
     private static final String STOP = "Stop";
     private static TwitterVoiceService instance = null;
+    private StatusManager statusManager;
     private DbAdapter adapter;
     private TextToSpeech tts;
     private List<TwitterStream> streams;
@@ -81,6 +83,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         tts = new TextToSpeech(this, this);
         streams = new ArrayList<TwitterStream>();
         headphoneReceiver = new HeadphoneReceiver();
+        statusManager = new StatusManager(60);
         makeNotification();
         initConfig();
         loginTwitter();
@@ -248,6 +251,12 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         @Override
         public void onStatus(Status status) {
+
+            if (statusManager.isSpoken(status)) {
+                Log.d("Tweet", "Duplicated");
+                return;
+            }
+
             String text;
             User user;
             User origUser = null;
