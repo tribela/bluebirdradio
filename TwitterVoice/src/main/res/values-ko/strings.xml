@@ -15,6 +15,10 @@
     <string name="message_delete_account">진짜로 이 계정을 지울까요?</string>
     <string name="logged_in">로그인 성공.</string>
     <string name="not_logged_in">로그인 실패.</string>
+
+    <string name="category_options">옵션</string>
+    <string name="category_accounts">계정</string>
+    <string name="category_misc">기타</string>
     <string name="title_stop_on_unplugged">헤드폰 제거시 멈추기</string>
     <string name="summary_stop_on_unplugged">헤드폰을 제거할 때 블루버드 라디오를 종료합니다.</string>
     <string name="title_manage_account">계정 관리</string>

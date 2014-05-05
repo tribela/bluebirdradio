@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="Preferences">
 
-    <PreferenceCategory android:title="Options">
+    <PreferenceCategory android:title="@string/category_options">
 
         <CheckBoxPreference
             android:defaultValue="true"
@@ -15,7 +15,7 @@
             android:summary="@string/summary_speak_screenname"
             android:title="@string/title_speak_screenname" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Accounts">
+    <PreferenceCategory android:title="@string/category_accounts">
         <Preference
             android:summary="@string/summary_manage_account"
             android:title="@string/title_manage_account">
@@ -25,7 +25,7 @@
                 android:targetPackage="kai.twitter.voice" />
         </Preference>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Misc">
+    <PreferenceCategory android:title="@string/category_misc">
         <EditTextPreference
             android:defaultValue="60"
             android:key="mute_time"
