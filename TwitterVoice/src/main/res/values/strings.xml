@@ -23,6 +23,7 @@
     <string name="summary_speak_screenname">Speak screen name instead of account name</string>
 
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
+    <string name="retweeted_by">Retweeted by {0}.</string>
 
     <string name="CONSUMER_KEY">pQrJ6uH5VSyMnRIhujHaXWuYu</string>
     <string name="CONSUMER_SECRET">TSqiGL4JQ6eXfYLtnzkNzPZLmADE8dtqekErnpfVocYvNciO2k</string>

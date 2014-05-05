@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
+import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
@@ -247,25 +249,29 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         @Override
         public void onStatus(Status status) {
             String text;
-            String name;
+            User user;
+            User origUser = null;
             if (status.isRetweet()) {
                 Status retweetedStatus = status.getRetweetedStatus();
-                if (opt_speak_screenname) {
-                    name = retweetedStatus.getUser().getScreenName();
-                } else {
-                    name = retweetedStatus.getUser().getName();
-                }
+                user = retweetedStatus.getUser();
+                origUser = status.getUser();
                 text = retweetedStatus.getText();
             } else {
-                if (opt_speak_screenname) {
-                    name = status.getUser().getScreenName();
-                } else {
-                    name = status.getUser().getName();
-                }
+                user = status.getUser();
                 text = status.getText();
             }
-            String message = String.format("%s: %s", name, text);
+
+            String message = MessageFormat.format("{0}: {1}",
+                    opt_speak_screenname ? user.getScreenName() : user.getName(),
+                    text);
+
+            if (origUser != null) {
+                message = MessageFormat.format(getString(R.string.retweeted_by),
+                        opt_speak_screenname ? origUser.getScreenName() : origUser.getName()
+                ) + message;
+            }
             tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            Log.d("Tweet", message);
         }
 
         @Override
