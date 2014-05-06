@@ -22,6 +22,8 @@
     <string name="category_misc">Misc</string>
     <string name="title_stop_on_unplugged">Stop on headset unplugged</string>
     <string name="summary_stop_on_unplugged">Stop Bluebird Radio when headset unplugged</string>
+    <string name="title_remove_url">Don\'t speak URL</string>
+    <string name="summary_remove_url">URL is annoying to listen in common case.</string>
     <string name="title_manage_account">Manage accounts</string>
     <string name="summary_manage_account">Manage accounts for Bluebird Radio</string>
     <string name="title_speak_screenname">Speak screen name</string>

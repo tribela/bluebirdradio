@@ -16,11 +16,11 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.net.URL;
-import java.net.MalformedURLException;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 import kai.twitter.voice.tweetFilter.StatusManager;
@@ -53,6 +53,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private PrefChangeListener prefChangeListener;
     private boolean opt_speak_screenname;
     private boolean opt_stop_on_unplugged;
+    private boolean opt_remove_url;
     private int opt_mute_time;
 
     public static boolean isRunning() {
@@ -114,6 +115,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private void readConfig() {
         opt_speak_screenname = preferences.getBoolean("speak_screenname", false);
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
+        opt_remove_url = preferences.getBoolean("remove_url", true);
         opt_mute_time = Integer.parseInt(preferences.getString("mute_time", "60"));
 
         registerHeadsetReceiver();
@@ -284,6 +286,15 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 ) + message;
             }
 
+            if (opt_remove_url) {
+                message = removeUrl(message);
+            }
+
+            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            Log.d("Tweet", message);
+        }
+
+        private String removeUrl(String message) {
             String messageToBeSpoken = "";
             String[] parts = message.split("\\s");
             for (String item : parts) {
@@ -294,9 +305,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                     messageToBeSpoken += " ";
                 }
             }
-
-            tts.speak(messageToBeSpoken.trim(), TextToSpeech.QUEUE_ADD, null);
-            Log.d("Tweet", message);
+            return messageToBeSpoken.trim();
         }
 
         @Override
