@@ -14,6 +14,11 @@
             android:key="speak_screenname"
             android:summary="@string/summary_speak_screenname"
             android:title="@string/title_speak_screenname" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="remove_url"
+            android:summary="@string/summary_remove_url"
+            android:title="@string/title_remove_url" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/category_accounts">
         <Preference

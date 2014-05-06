@@ -2,6 +2,7 @@
 ------
 
 - Notes for licenses.
+- New option: "Remove URL".
 
 
 1.0.9
