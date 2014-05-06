@@ -291,10 +291,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                     URL url = new URL(item);
                 } catch (MalformedURLException e) {
                     messageToBeSpoken += item;
+                    messageToBeSpoken += " ";
                 }
             }
 
-            tts.speak(messageToBeSpoken, TextToSpeech.QUEUE_ADD, null);
+            tts.speak(messageToBeSpoken.trim(), TextToSpeech.QUEUE_ADD, null);
             Log.d("Tweet", message);
         }
 
