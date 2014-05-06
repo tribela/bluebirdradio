@@ -19,6 +19,8 @@ import android.widget.Toast;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.URL;
+import java.net.MalformedURLException;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 import kai.twitter.voice.tweetFilter.StatusManager;
@@ -281,7 +283,18 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                         opt_speak_screenname ? origUser.getScreenName() : origUser.getName()
                 ) + message;
             }
-            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+
+            String messageToBeSpoken = "";
+            String[] parts = message.split("\\s");
+            for (String item : parts) {
+                try {
+                    URL url = new URL(item);
+                } catch (MalformedURLException e) {
+                    messageToBeSpoken += item;
+                }
+            }
+
+            tts.speak(messageToBeSpoken, TextToSpeech.QUEUE_ADD, null);
             Log.d("Tweet", message);
         }
 
