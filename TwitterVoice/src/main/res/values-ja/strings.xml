@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ブルーバードラジオ</string>
+    <string name="action_settings">設定</string>
+    <string name="start_service">スタート</string>
+    <string name="service_started">開始されました。</string>
+    <string name="service_stopped">終了しました。</string>
+    <string name="initialize_failed">初期化に失敗されました。</string>
+    <string name="title_activity_settings">設定</string>
+    <string name="title_activity_login">ログイン</string>
+    <string name="title_activity_manage_accounts">アカウントの管理</string>
+    <string name="add_account">アカウントを追加る</string>
+    <string name="title_delete_account">アカウントの削除</string>
+    <string name="message_delete_account">本当にこのアカウントを削除しますか？</string>
+    <string name="logged_in">ログインに成功しました。</string>
+    <string name="not_logged_in">ログインに失敗しました。</string>
+
+    <string name="category_options">オプション</string>
+    <string name="category_accounts">アカウント</string>
+    <string name="category_misc">その他</string>
+    <string name="title_stop_on_unplugged">헤드폰 제거시 멈추기</string>
+    <string name="summary_stop_on_unplugged">헤드폰을 제거할 때 블루버드 라디오를 종료합니다.</string>
+    <string name="title_remove_url">URL 말하지 않기.</string>
+    <string name="summary_remove_url">TTS로 듣기에 URL 은 거슬릴 뿐입니다.</string>
+    <string name="title_manage_account">계정 관리</string>
+    <string name="summary_manage_account"> 파랑새 라디오에 사용 할 계정을 관리 합니다.</string>
+    <string name="title_speak_screenname">아이디 말하기</string>
+    <string name="summary_speak_screenname">닉네임 대신 아이디를 말합니다. (일본어 닉네임 등  TTS가 읽지 못하는 경우)</string>
+    <string name="title_mute_time">일정 시간동안 같은 트윗 말하기 않기.</string>
+    <string name="summary_mute_time">초 단위로 입력하세요.</string>
+
+    <string name="unable_get_oauth_token">OAuth 토큰을 얻어오는데 실패하였습니다.</string>
+    <string name="retweeted_by">{0}さんがリツイートしました。</string>
+
+</resources>
