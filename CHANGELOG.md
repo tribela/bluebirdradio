@@ -1,3 +1,9 @@
+1.1.2
+-----
+
+- Fix preference screen title.
+
+
 1.1.1
 -----
 
