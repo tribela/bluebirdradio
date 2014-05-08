@@ -1,5 +1,12 @@
+1.1.1
+-----
+
+- Correct open source license file.
+- Scroll view for open source licenses view.
+
+
 1.1.0
-------
+-----
 
 - Notes for licenses.
 - New option: "Remove URL".

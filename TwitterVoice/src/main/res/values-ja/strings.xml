@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ブルーバードラジオ</string>
+    <string name="action_settings">設定</string>
+    <string name="start_service">スタート</string>
+    <string name="service_started">開始されました。</string>
+    <string name="service_stopped">終了しました。</string>
+    <string name="initialize_failed">初期化に失敗されました。</string>
+    <string name="title_activity_settings">設定</string>
+    <string name="title_activity_login">ログイン</string>
+    <string name="title_activity_manage_accounts">アカウントの管理</string>
+    <string name="add_account">アカウントを追加る</string>
+    <string name="title_delete_account">アカウントの削除</string>
+    <string name="message_delete_account">本当にこのアカウントを削除しますか？</string>
+    <string name="logged_in">ログインに成功しました。</string>
+    <string name="not_logged_in">ログインに失敗しました。</string>
+
+    <string name="category_options">オプション</string>
+    <string name="category_accounts">アカウント</string>
+    <string name="category_misc">その他</string>
+    <string name="title_stop_on_unplugged">ヘッドフォンを抜いた時に停止する。</string>
+    <string name="summary_stop_on_unplugged">ヘッドフォンをぬいた時にブルーバードラジオを終了します。</string>
+    <string name="title_remove_url">URLを言わない</string>
+    <string name="summary_remove_url">URLは、TTSには適していません。</string>
+    <string name="title_manage_account">アカウントの管理</string>
+    <string name="summary_manage_account">ツイーターのアカウントを管理します。</string>
+    <string name="title_speak_screenname">ユーザー名で読む</string>
+    <string name="summary_speak_screenname">ニックネームの代わりにユーザ名を読む。</string>
+    <string name="title_mute_time">のようなツイートを無視する時間。</string>
+    <string name="summary_mute_time">秒単位で入力してください。</string>
+
+    <string name="unable_get_oauth_token">OAuth トークンを持ってくるられません。</string>
+    <string name="retweeted_by">{0}さんがリツイートしました。</string>
+
+</resources>
