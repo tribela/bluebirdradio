@@ -23,17 +23,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <ScrollView
+            <TextView
+                android:id="@+id/licensesMainView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_light" />
 
-                <TextView
-                    android:id="@+id/licensesMainView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/background_light" />
-
-            </ScrollView>
         </LinearLayout>
     </ScrollView>
 

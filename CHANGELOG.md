@@ -2,6 +2,7 @@
 -----
 
 - Fix preference screen title.
+- Remove Scroll view on open source licenses screen.
 
 
 1.1.1
