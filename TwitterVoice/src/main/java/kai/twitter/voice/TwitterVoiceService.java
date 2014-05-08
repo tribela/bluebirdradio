@@ -83,7 +83,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     @Override
     public void onCreate() {
         instance = this;
-        adapter = new DbAdapter(getApplicationContext());
+        adapter = new DbAdapter(this);
         tts = new TextToSpeech(this, this);
         streams = new ArrayList<TwitterStream>();
         headphoneReceiver = new HeadphoneReceiver();
@@ -130,7 +130,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         PendingIntent pStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification = new NotificationCompat.Builder(this)
                 .setStyle(new NotificationCompat.BigTextStyle())
-                .setContentTitle(getText(R.string.app_name))
+                .setContentTitle(getString(R.string.app_name))
                 .setSmallIcon(R.drawable.ic_stat_notify_service)
                 .setContentIntent(pMainIntent)
                 .setAutoCancel(true)
@@ -208,9 +208,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         unregisterReceiver(prefChangeListener);
 
-        Toast.makeText(getApplicationContext(),
-                getText(R.string.service_stopped),
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getText(R.string.service_stopped), Toast.LENGTH_SHORT).show();
 
         broadcastService(false);
     }
@@ -218,26 +216,22 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            Toast.makeText(getApplicationContext(),
-                    getText(R.string.service_started),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.service_started), Toast.LENGTH_SHORT).show();
         } else {
             Log.e("TTS", "Initialize failed");
-            Toast.makeText(getApplicationContext(),
-                    getText(R.string.initialize_failed),
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getText(R.string.initialize_failed), Toast.LENGTH_SHORT).show();
             this.stopSelf();
         }
     }
 
     private void showMain() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     private void showManageAccounts() {
-        Intent intent = new Intent(getApplicationContext(), ManageAccountsActivity.class);
+        Intent intent = new Intent(this, ManageAccountsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -247,7 +241,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         @Override
         public void onReceive(Context context, Intent intent) {
             String name = intent.getAction();
-            if (name.equals(getResources().getString(R.string.ACTION_CHANGE_PREFERENCE))) {
+            if (name.equals(getString(R.string.ACTION_CHANGE_PREFERENCE))) {
                 readConfig();
             }
         }
