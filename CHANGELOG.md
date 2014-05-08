@@ -3,6 +3,7 @@
 
 - Correct open source license file.
 - Scroll view for open source licenses view.
+- Japanese support.
 
 
 1.1.0
