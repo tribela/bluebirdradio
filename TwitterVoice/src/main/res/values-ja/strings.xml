@@ -19,16 +19,16 @@
     <string name="category_options">オプション</string>
     <string name="category_accounts">アカウント</string>
     <string name="category_misc">その他</string>
-    <string name="title_stop_on_unplugged">헤드폰 제거시 멈추기</string>
-    <string name="summary_stop_on_unplugged">헤드폰을 제거할 때 블루버드 라디오를 종료합니다.</string>
-    <string name="title_remove_url">URL 말하지 않기.</string>
-    <string name="summary_remove_url">TTS로 듣기에 URL 은 거슬릴 뿐입니다.</string>
+    <string name="title_stop_on_unplugged">ヘッドフォンを抜いた時に停止する。</string>
+    <string name="summary_stop_on_unplugged">ヘッドフォンをぬいた時にブルーバードラジオを終了します。</string>
+    <string name="title_remove_url">URLを言わない</string>
+    <string name="summary_remove_url">URLは、TTSには適していません。</string>
     <string name="title_manage_account">アカウントの管理</string>
     <string name="summary_manage_account">ツイーターのアカウントを管理します。</string>
-    <string name="title_speak_screenname">아이디 말하기</string>
-    <string name="summary_speak_screenname">닉네임 대신 아이디를 말합니다. (일본어 닉네임 등  TTS가 읽지 못하는 경우)</string>
-    <string name="title_mute_time">일정 시간동안 같은 트윗 말하기 않기.</string>
-    <string name="summary_mute_time">초 단위로 입력하세요.</string>
+    <string name="title_speak_screenname">ユーザー名で読む</string>
+    <string name="summary_speak_screenname">ニックネームの代わりにユーザ名を読む。</string>
+    <string name="title_mute_time">のようなツイートを無視する時間。</string>
+    <string name="summary_mute_time">秒単位で入力してください。</string>
 
     <string name="unable_get_oauth_token">OAuth トークンを持ってくるられません。</string>
     <string name="retweeted_by">{0}さんがリツイートしました。</string>
