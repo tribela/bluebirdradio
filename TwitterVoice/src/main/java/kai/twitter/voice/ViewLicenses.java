@@ -22,7 +22,7 @@ public class ViewLicenses extends ActionBarActivity {
 
 
         readText("notes.txt", headerView);
-        readText("LICENSE.txt", mainView);
+        readText("APACHE_LICENSE_2.txt", mainView);
     }
 
     private void readText(String filename, TextView headerView) {
