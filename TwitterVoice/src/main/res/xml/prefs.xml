@@ -34,6 +34,7 @@
         <EditTextPreference
             android:defaultValue="60"
             android:key="mute_time"
+            android:numeric="integer"
             android:summary="@string/summary_mute_time"
             android:title="@string/title_mute_time" />
         <Preference android:title="Open source licenses">

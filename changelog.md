@@ -3,6 +3,7 @@
 
 - Fix preference screen title.
 - Remove Scroll view on open source licenses screen.
+- Mute time is receiving integer only.
 
 
 1.1.1
