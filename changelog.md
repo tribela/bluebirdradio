@@ -4,6 +4,7 @@
 - Fix preference screen title.
 - Remove Scroll view on open source licenses screen.
 - Mute time is receiving integer only.
+- Switch backport for older API.
 
 
 1.1.1
