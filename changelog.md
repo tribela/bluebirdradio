@@ -1,3 +1,9 @@
+1.1.3
+-----
+
+- Open source license notify for Switch backport.
+
+
 1.1.2
 -----
 

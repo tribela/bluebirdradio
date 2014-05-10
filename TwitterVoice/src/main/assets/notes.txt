@@ -1,2 +1,3 @@
 Notices for libraries:
 - twitter4j
+- android-switch-backport
