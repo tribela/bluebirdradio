@@ -289,17 +289,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         }
 
         private String removeUrl(String message) {
-            String messageToBeSpoken = "";
-            String[] parts = message.split("\\s");
-            for (String item : parts) {
-                try {
-                    URL url = new URL(item);
-                } catch (MalformedURLException e) {
-                    messageToBeSpoken += item;
-                    messageToBeSpoken += " ";
-                }
-            }
-            return messageToBeSpoken.trim();
+            String urlPattern = "(https?://\\S+)(\\s|$)";
+            return message.replaceAll(urlPattern, "");
         }
 
         @Override
