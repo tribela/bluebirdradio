@@ -27,7 +27,6 @@ public class StatusManager {
         cleanStatuses(status.getCreatedAt());
 
         if (statuses.containsKey(statusId)) {
-            statuses.put(statusId, status.getCreatedAt());
             return true;
         } else {
             statuses.put(statusId, status.getCreatedAt());

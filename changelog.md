@@ -2,6 +2,7 @@
 -----
 
 - Open source license notify for Switch backport.
+- Mute time works correctly.
 
 
 1.1.2
