@@ -3,6 +3,7 @@
 - ActionBar background color.
 - Switch works on slide.
 - Image buttons on main activity.
+- Remove Switch backport.
 
 1.1.3
 -----
