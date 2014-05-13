@@ -16,11 +16,12 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_weight="1">
 
-        <org.jraf.android.backport.switchwidget.Switch
+        <ToggleButton
             android:id="@+id/switch_start_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/start_service" />
+            android:textOff=""
+            android:textOn="" />
 
     </ScrollView>
 

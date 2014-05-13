@@ -13,12 +13,10 @@ import android.widget.CompoundButton;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import org.jraf.android.backport.switchwidget.Switch;
-
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
-    private Switch startServiceToggle;
+    private CompoundButton startServiceToggle;
     private DbAdapter adapter;
     private AdView adView;
     private ServiceReceiver serviceReceiver;
@@ -30,7 +28,7 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
 
         adapter = new DbAdapter(getApplicationContext());
 
-        startServiceToggle = (Switch) findViewById(R.id.switch_start_service);
+        startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
         startServiceToggle.setOnCheckedChangeListener(this);
 
         serviceReceiver = new ServiceReceiver();
