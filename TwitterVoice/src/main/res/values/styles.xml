@@ -3,6 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="switchStyle">@style/Widget.Holo.Light.CompoundButton.Switch</item>
+        <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+        <item name="actionBarStyle">@style/ActionBarTheme</item>
     </style>
+
+    <style name="ActionBarTheme" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@color/light_skyblue</item>
+        <item name="background">@color/light_skyblue</item>
+    </style>
+
+    <color name="light_skyblue">#aaddff</color>
 
 </resources>
