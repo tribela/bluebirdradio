@@ -2,7 +2,7 @@
 -----
 - ActionBar background color.
 - Switch works on slide.
-- Image button on main activity.
+- Image buttons on main activity.
 
 1.1.3
 -----
