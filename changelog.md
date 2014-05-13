@@ -1,6 +1,7 @@
 1.1.4
 -----
 - ActionBar background color.
+- Switch works on slide.
 
 1.1.3
 -----
