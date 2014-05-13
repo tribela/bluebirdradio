@@ -1,4 +1,4 @@
-1.1.4
+1.2.0
 -----
 - ActionBar background color.
 - Switch works on slide.
