@@ -20,8 +20,11 @@
             android:id="@+id/switch_start_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/main_switch"
             android:textOff=""
             android:textOn="" />
+
 
     </ScrollView>
 
