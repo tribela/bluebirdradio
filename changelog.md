@@ -1,3 +1,9 @@
+1.2.1
+-----
+
+- Korean translation is modified.
+
+
 1.2.0
 -----
 - ActionBar background color.
