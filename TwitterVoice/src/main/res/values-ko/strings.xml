@@ -16,6 +16,8 @@
     <string name="logged_in">로그인 성공.</string>
     <string name="not_logged_in">로그인 실패.</string>
 
+    <string name="noti_running">실행중</string>
+
     <string name="category_options">옵션</string>
     <string name="category_accounts">계정</string>
     <string name="category_misc">기타</string>

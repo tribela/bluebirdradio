@@ -128,8 +128,9 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         PendingIntent pMainIntent = PendingIntent.getService(this, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification = new NotificationCompat.Builder(this)
-                .setStyle(new NotificationCompat.BigTextStyle())
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.noti_running)))
                 .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.noti_running))
                 .setSmallIcon(R.drawable.ic_stat_notify_service)
                 .setContentIntent(pMainIntent)
                 .setAutoCancel(true)

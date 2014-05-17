@@ -3,6 +3,7 @@
 
 - Korean translation is modified.
 - Custom Toast theme.
+- Notification message.
 
 
 1.2.0

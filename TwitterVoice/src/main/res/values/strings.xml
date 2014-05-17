@@ -17,6 +17,8 @@
     <string name="logged_in">Logged in successfully</string>
     <string name="not_logged_in">Login failed</string>
 
+    <string name="noti_running">Running</string>
+
     <string name="category_options">Options</string>
     <string name="category_accounts">Accounts</string>
     <string name="category_misc">Misc</string>
