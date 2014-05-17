@@ -2,6 +2,7 @@
 -----
 
 - Korean translation is modified.
+- Custom Toast theme.
 
 
 1.2.0

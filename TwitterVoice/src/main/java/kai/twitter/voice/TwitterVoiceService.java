@@ -24,6 +24,7 @@ import java.util.List;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 import kai.twitter.voice.tweetFilter.StatusManager;
+import kai.twitter.voice.util.CustomToast;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
@@ -208,7 +209,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         unregisterReceiver(prefChangeListener);
 
-        Toast.makeText(this, getText(R.string.service_stopped), Toast.LENGTH_SHORT).show();
+        CustomToast.makeText(this, getString(R.string.service_stopped), Toast.LENGTH_SHORT).show();
 
         broadcastService(false);
     }
@@ -216,10 +217,10 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            Toast.makeText(this, getText(R.string.service_started), Toast.LENGTH_SHORT).show();
+            CustomToast.makeText(this, getString(R.string.service_started), Toast.LENGTH_SHORT).show();
         } else {
             Log.e("TTS", "Initialize failed");
-            Toast.makeText(this, getText(R.string.initialize_failed), Toast.LENGTH_SHORT).show();
+            CustomToast.makeText(this, getString(R.string.initialize_failed), Toast.LENGTH_SHORT).show();
             this.stopSelf();
         }
     }

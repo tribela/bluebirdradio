@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import kai.twitter.voice.util.CustomToast;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -57,7 +58,7 @@ public class LoginActivity extends Activity {
                                 msg = errorMsg;
                             }
                             Log.e("Twitter", msg);
-                            Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
+                            CustomToast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_SHORT).show();
                         }
                     }
                     finish();
@@ -93,7 +94,7 @@ public class LoginActivity extends Activity {
             if (rqToken != null) {
                 webview.loadUrl(rqToken.getAuthorizationURL());
             } else {
-                Toast.makeText(context, getString(R.string.unable_get_oauth_token), Toast.LENGTH_SHORT).show();
+                CustomToast.makeText(context, getString(R.string.unable_get_oauth_token), Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
