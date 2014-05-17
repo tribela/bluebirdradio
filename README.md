@@ -1,8 +1,8 @@
 Bluebird Radio
 ==============
 
-Twitter client for android that speaks with TTS.
-It speaks every tweets in your timeline imediately like radio.
+Bluebird Radio is a Twitter client for Android devices that speaks with TTS.
+It speaks every tweets in your timeline imediately like a radio.
 
 Install
 -------
