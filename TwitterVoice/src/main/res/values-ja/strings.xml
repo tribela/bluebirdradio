@@ -26,7 +26,7 @@
     <string name="title_remove_url">URLを言わない</string>
     <string name="summary_remove_url">URLは、TTSには適していません。</string>
     <string name="title_manage_account">アカウントの管理</string>
-    <string name="summary_manage_account">ツイーターのアカウントを管理します。</string>
+    <string name="summary_manage_account">ツイッターのアカウントを管理します。</string>
     <string name="title_speak_screenname">ユーザー名で読む</string>
     <string name="summary_speak_screenname">ニックネームの代わりにユーザ名を読む。</string>
     <string name="title_mute_time">のようなツイートを無視する時間。</string>
