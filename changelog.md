@@ -2,6 +2,8 @@
 -----
 
 - Japanese typo.
+- Some translations.
+- Remove advertisement.
 
 
 1.2.1
