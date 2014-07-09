@@ -12,16 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private CompoundButton startServiceToggle;
     private Button prefButton;
     private DbAdapter adapter;
-    private AdView adView;
     private ServiceReceiver serviceReceiver;
 
     @Override
@@ -41,22 +37,10 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         IntentFilter filter = new IntentFilter();
         filter.addAction(getResources().getString(R.string.ACTION_SERVICE_TOGGLE));
         registerReceiver(serviceReceiver, filter);
-
-        //Create an ad.
-        adView = (AdView) findViewById(R.id.adView);
-
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-        adView.loadAd(adRequest);
-
     }
 
     @Override
     protected void onPause() {
-        if (adView != null) {
-            adView.pause();
-        }
         super.onPause();
     }
 
@@ -64,18 +48,12 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
     protected void onResume() {
         super.onResume();
         startServiceToggle.setChecked(TwitterVoiceService.isRunning());
-        if (adView != null) {
-            adView.resume();
-        }
     }
 
     @Override
     protected void onDestroy() {
         unregisterReceiver(serviceReceiver);
 
-        if (adView != null) {
-            adView.destroy();
-        }
         super.onDestroy();
     }
 
