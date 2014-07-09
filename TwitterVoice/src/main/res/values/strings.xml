@@ -36,11 +36,8 @@
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
     <string name="retweeted_by">Retweeted by {0}.</string>
 
-    <string name="CONSUMER_KEY">pQrJ6uH5VSyMnRIhujHaXWuYu</string>
-    <string name="CONSUMER_SECRET">TSqiGL4JQ6eXfYLtnzkNzPZLmADE8dtqekErnpfVocYvNciO2k</string>
 
-
-    <string name="ACTION_CHANGE_PREFERENCE">ACTION_CHANGE_PREFERENCE</string>
-    <string name="ACTION_SERVICE_TOGGLE">ACTION_SERVICE_TOGGLE</string>
+    <string name="ACTION_CHANGE_PREFERENCE" translatable="false">ACTION_CHANGE_PREFERENCE</string>
+    <string name="ACTION_SERVICE_TOGGLE" translatable="false">ACTION_SERVICE_TOGGLE</string>
 
 </resources>

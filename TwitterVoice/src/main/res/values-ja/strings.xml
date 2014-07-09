@@ -10,6 +10,7 @@
     <string name="title_activity_settings">設定</string>
     <string name="title_activity_login">ログイン</string>
     <string name="title_activity_manage_accounts">アカウントの管理</string>
+    <string name="title_activity_view_licenses">オープンソースのライセンス</string>
     <string name="add_account">アカウントを追加る</string>
     <string name="title_delete_account">アカウントの削除</string>
     <string name="message_delete_account">本当にこのアカウントを削除しますか？</string>
