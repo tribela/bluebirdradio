@@ -300,7 +300,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         @Override
         public void onTrackLimitationNotice(int i) {
-
+            Log.w("TweetLimit", Integer.toString(i));
         }
 
         @Override
@@ -310,12 +310,12 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         @Override
         public void onStallWarning(StallWarning stallWarning) {
-
+            Log.w("TweetWarning", stallWarning.getMessage());
         }
 
         @Override
         public void onException(Exception e) {
-
+            Log.e("TweetException", e.getMessage());
         }
     }
 }
