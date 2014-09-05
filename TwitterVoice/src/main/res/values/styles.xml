@@ -11,6 +11,6 @@
         <item name="background">@color/light_skyblue</item>
     </style>
 
-    <color name="light_skyblue">#aaddff</color>
+    <color name="light_skyblue">#4cabeb</color>
 
 </resources>
