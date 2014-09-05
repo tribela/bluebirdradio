@@ -3,6 +3,7 @@
 
 - Change logo image.
 - Read direct messages.
+- Read followed by someone.
 
 
 1.3.0

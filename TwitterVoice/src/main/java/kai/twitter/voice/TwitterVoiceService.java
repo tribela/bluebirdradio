@@ -325,6 +325,16 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         }
 
         @Override
+        public void onFollow(User user, User user2) {
+            if (myIds.contains(user2.getId())) {
+                String message = MessageFormat.format(getString(R.string.followed_by),
+                        opt_speak_screenname ? user.getScreenName() : user.getName(),
+                        opt_speak_screenname ? user2.getScreenName() : user2.getName());
+                tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            }
+        }
+
+        @Override
         public void onDeletionNotice(long l, long l2) {
 
         }
@@ -341,11 +351,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         @Override
         public void onUnfavorite(User user, User user2, Status status) {
-
-        }
-
-        @Override
-        public void onFollow(User user, User user2) {
 
         }
 

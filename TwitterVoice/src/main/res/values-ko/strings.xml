@@ -36,5 +36,6 @@
     <string name="unable_get_oauth_token">OAuth 토큰을 얻어오는데 실패하였습니다.</string>
     <string name="retweeted_by">{0} 님이 리트윗 하였습니다.</string>
     <string name="dm_from">{0} 님이 메시지를 보내셨습니다. {1}</string>
+    <string name="followed_by">{0} 님이 {1} 님을 팔로우 합니다.</string>
 
 </resources>
