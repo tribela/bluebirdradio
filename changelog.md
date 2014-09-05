@@ -1,3 +1,10 @@
+1.3.0
+-----
+
+- New artworks
+  Thanks for Ryu Hwangwon(https://twitter.com/Hwangwon_Juliet)
+
+
 1.2.2
 -----
 

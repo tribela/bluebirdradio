@@ -9,14 +9,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 
 public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     private CompoundButton startServiceToggle;
-    private Button prefButton;
+    private ImageButton prefButton;
     private DbAdapter adapter;
     private ServiceReceiver serviceReceiver;
 
@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         adapter = new DbAdapter(getApplicationContext());
 
         startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
-        prefButton = (Button) findViewById(R.id.prefButton);
+        prefButton = (ImageButton) findViewById(R.id.prefButton);
 
         startServiceToggle.setOnCheckedChangeListener(this);
         prefButton.setOnClickListener(this);
