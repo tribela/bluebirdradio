@@ -2,6 +2,7 @@
 -----
 
 - Change logo image.
+- Prevent crashing when logging with null.
 
 
 1.3.0

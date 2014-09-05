@@ -315,7 +315,10 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         @Override
         public void onException(Exception e) {
-            Log.e("TweetException", e.getMessage());
+            String message = e.getMessage();
+            if (message != null) {
+                Log.e("TweetException", e.getMessage());
+            }
         }
     }
 }
