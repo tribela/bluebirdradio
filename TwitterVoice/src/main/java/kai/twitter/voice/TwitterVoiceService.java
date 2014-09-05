@@ -27,6 +27,8 @@ import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.User;
@@ -47,6 +49,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private DbAdapter adapter;
     private TextToSpeech tts;
     private List<TwitterStream> streams;
+    private List<Long> myIds;
     private Notification notification;
     private SharedPreferences preferences;
     private HeadphoneReceiver headphoneReceiver;
@@ -87,6 +90,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         adapter = new DbAdapter(this);
         tts = new TextToSpeech(this, this);
         streams = new ArrayList<TwitterStream>();
+        myIds = new ArrayList<Long>();
         headphoneReceiver = new HeadphoneReceiver();
         initConfig();
         statusManager = new StatusManager(opt_mute_time);
@@ -176,6 +180,15 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                             .setOAuthAccessToken(token.getToken())
                             .setOAuthAccessTokenSecret(token.getTokenSecret())
                             .build();
+
+                    try {
+                        long id = new TwitterFactory(conf).getInstance().getId();
+                        myIds.add(id);
+                    } catch (TwitterException e) {
+                        Log.e("TweetError", "Failed to add id to myIds");
+                        Log.e("TweetError", e.getMessage());
+                    }
+
                     TwitterStream stream = new TwitterStreamFactory(conf).getInstance();
                     streams.add(stream);
                     stream.addListener(new Listener());
@@ -298,6 +311,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         @Override
         public void onDirectMessage(DirectMessage directMessage) {
             User sender = directMessage.getSender();
+
+            if (myIds.contains(sender.getId())) {
+                return;
+            }
+
             String text = directMessage.getText();
             String message = MessageFormat.format(getString(R.string.dm_from),
                     opt_speak_screenname ? sender.getScreenName() : sender.getName(),
