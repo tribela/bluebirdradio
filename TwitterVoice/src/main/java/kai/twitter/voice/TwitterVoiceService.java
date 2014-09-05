@@ -23,13 +23,17 @@ import java.util.List;
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 import kai.twitter.voice.tweetFilter.StatusManager;
 import kai.twitter.voice.util.CustomToast;
+import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
-import twitter4j.StatusListener;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.User;
+import twitter4j.UserList;
+import twitter4j.UserStreamListener;
 import twitter4j.auth.AccessToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
@@ -45,6 +49,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private DbAdapter adapter;
     private TextToSpeech tts;
     private List<TwitterStream> streams;
+    private List<Long> myIds;
     private Notification notification;
     private SharedPreferences preferences;
     private HeadphoneReceiver headphoneReceiver;
@@ -85,6 +90,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         adapter = new DbAdapter(this);
         tts = new TextToSpeech(this, this);
         streams = new ArrayList<TwitterStream>();
+        myIds = new ArrayList<Long>();
         headphoneReceiver = new HeadphoneReceiver();
         initConfig();
         statusManager = new StatusManager(opt_mute_time);
@@ -174,6 +180,15 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                             .setOAuthAccessToken(token.getToken())
                             .setOAuthAccessTokenSecret(token.getTokenSecret())
                             .build();
+
+                    try {
+                        long id = new TwitterFactory(conf).getInstance().getId();
+                        myIds.add(id);
+                    } catch (TwitterException e) {
+                        Log.e("TweetError", "Failed to add id to myIds");
+                        Log.e("TweetError", e.getMessage());
+                    }
+
                     TwitterStream stream = new TwitterStreamFactory(conf).getInstance();
                     streams.add(stream);
                     stream.addListener(new Listener());
@@ -247,7 +262,12 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         }
     }
 
-    private class Listener implements StatusListener {
+    private class Listener implements UserStreamListener {
+
+        private String removeUrl(String message) {
+            String urlPattern = "(https?://\\S+)(\\s|$)";
+            return message.replaceAll(urlPattern, "");
+        }
 
         @Override
         public void onStatus(Status status) {
@@ -288,9 +308,105 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             Log.d("Tweet", message);
         }
 
-        private String removeUrl(String message) {
-            String urlPattern = "(https?://\\S+)(\\s|$)";
-            return message.replaceAll(urlPattern, "");
+        @Override
+        public void onDirectMessage(DirectMessage directMessage) {
+            User sender = directMessage.getSender();
+
+            if (myIds.contains(sender.getId())) {
+                return;
+            }
+
+            String text = directMessage.getText();
+            String message = MessageFormat.format(getString(R.string.dm_from),
+                    opt_speak_screenname ? sender.getScreenName() : sender.getName(),
+                    text);
+            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            Log.d("DM", message);
+        }
+
+        @Override
+        public void onFollow(User user, User user2) {
+            if (myIds.contains(user2.getId())) {
+                String message = MessageFormat.format(getString(R.string.followed_by),
+                        opt_speak_screenname ? user.getScreenName() : user.getName(),
+                        opt_speak_screenname ? user2.getScreenName() : user2.getName());
+                tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            }
+        }
+
+        @Override
+        public void onDeletionNotice(long l, long l2) {
+
+        }
+
+        @Override
+        public void onFriendList(long[] longs) {
+
+        }
+
+        @Override
+        public void onFavorite(User user, User user2, Status status) {
+
+        }
+
+        @Override
+        public void onUnfavorite(User user, User user2, Status status) {
+
+        }
+
+        @Override
+        public void onUnfollow(User user, User user2) {
+
+        }
+
+        @Override
+        public void onUserListMemberAddition(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListMemberDeletion(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListSubscription(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListUnsubscription(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListCreation(User user, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListUpdate(User user, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListDeletion(User user, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserProfileUpdate(User user) {
+
+        }
+
+        @Override
+        public void onBlock(User user, User user2) {
+
+        }
+
+        @Override
+        public void onUnblock(User user, User user2) {
+
         }
 
         @Override

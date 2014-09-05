@@ -35,5 +35,7 @@
 
     <string name="unable_get_oauth_token">OAuth トークンを持ってくるられません。</string>
     <string name="retweeted_by">{0}さんがリツイートしました。</string>
+    <string name="dm_from">{0}さんがDMを送りました。 {1}</string>
+    <string name="followed_by">{0}さんが{1}さんをフォロワーしました。</string>
 
 </resources>

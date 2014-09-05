@@ -3,6 +3,8 @@
 
 - Change logo image.
 - Prevent crashing when logging with null.
+- Read direct messages.
+- Read followed by someone.
 
 
 1.3.0
