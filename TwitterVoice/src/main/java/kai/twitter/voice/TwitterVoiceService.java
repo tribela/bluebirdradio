@@ -320,6 +320,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             String message = MessageFormat.format(getString(R.string.dm_from),
                     opt_speak_screenname ? sender.getScreenName() : sender.getName(),
                     text);
+
+            if (opt_remove_url) {
+                message = removeUrl(message);
+            }
+
             tts.speak(message, TextToSpeech.QUEUE_ADD, null);
             Log.d("DM", message);
         }
