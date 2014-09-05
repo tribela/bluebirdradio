@@ -297,7 +297,13 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         @Override
         public void onDirectMessage(DirectMessage directMessage) {
-
+            User sender = directMessage.getSender();
+            String text = directMessage.getText();
+            String message = MessageFormat.format(getString(R.string.dm_from),
+                    opt_speak_screenname ? sender.getScreenName() : sender.getName(),
+                    text);
+            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            Log.d("DM", message);
         }
 
         @Override

@@ -2,6 +2,7 @@
 -----
 
 - Change logo image.
+- Read direct messages.
 
 
 1.3.0

@@ -35,6 +35,7 @@
 
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
     <string name="retweeted_by">Retweeted by {0}.</string>
+    <string name="dm_from">Direct message from {0}: {1}</string>
 
 
     <string name="ACTION_CHANGE_PREFERENCE" translatable="false">ACTION_CHANGE_PREFERENCE</string>
