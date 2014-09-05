@@ -23,13 +23,15 @@ import java.util.List;
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 import kai.twitter.voice.tweetFilter.StatusManager;
 import kai.twitter.voice.util.CustomToast;
+import twitter4j.DirectMessage;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
-import twitter4j.StatusListener;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 import twitter4j.User;
+import twitter4j.UserList;
+import twitter4j.UserStreamListener;
 import twitter4j.auth.AccessToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
@@ -247,7 +249,12 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         }
     }
 
-    private class Listener implements StatusListener {
+    private class Listener implements UserStreamListener {
+
+        private String removeUrl(String message) {
+            String urlPattern = "(https?://\\S+)(\\s|$)";
+            return message.replaceAll(urlPattern, "");
+        }
 
         @Override
         public void onStatus(Status status) {
@@ -288,9 +295,89 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             Log.d("Tweet", message);
         }
 
-        private String removeUrl(String message) {
-            String urlPattern = "(https?://\\S+)(\\s|$)";
-            return message.replaceAll(urlPattern, "");
+        @Override
+        public void onDirectMessage(DirectMessage directMessage) {
+
+        }
+
+        @Override
+        public void onDeletionNotice(long l, long l2) {
+
+        }
+
+        @Override
+        public void onFriendList(long[] longs) {
+
+        }
+
+        @Override
+        public void onFavorite(User user, User user2, Status status) {
+
+        }
+
+        @Override
+        public void onUnfavorite(User user, User user2, Status status) {
+
+        }
+
+        @Override
+        public void onFollow(User user, User user2) {
+
+        }
+
+        @Override
+        public void onUnfollow(User user, User user2) {
+
+        }
+
+        @Override
+        public void onUserListMemberAddition(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListMemberDeletion(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListSubscription(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListUnsubscription(User user, User user2, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListCreation(User user, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListUpdate(User user, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserListDeletion(User user, UserList userList) {
+
+        }
+
+        @Override
+        public void onUserProfileUpdate(User user) {
+
+        }
+
+        @Override
+        public void onBlock(User user, User user2) {
+
+        }
+
+        @Override
+        public void onUnblock(User user, User user2) {
+
         }
 
         @Override
