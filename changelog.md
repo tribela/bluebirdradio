@@ -2,6 +2,7 @@
 -----
 
 - Transparent Navigation bar.
+- Change artworks.
 
 
 1.3.1
@@ -11,7 +12,7 @@
 - Prevent crashing when logging with null.
 - Read direct messages.
 - Read followed by someone.
-- Change some styles
+- Change some styles.
 
 
 1.3.0
