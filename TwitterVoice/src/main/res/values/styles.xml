@@ -4,6 +4,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/ActionBarTheme</item>
         <item name="actionBarStyle">@style/ActionBarTheme</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:clipToPadding">false</item>
+
     </style>
 
     <style name="ActionBarTheme" parent="Widget.AppCompat.Light.ActionBar.Solid">
