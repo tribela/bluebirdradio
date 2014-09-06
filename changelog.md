@@ -1,3 +1,9 @@
+1.3.2
+-----
+
+- Transparent Navigation bar.
+
+
 1.3.1
 -----
 
