@@ -17,10 +17,21 @@ android {
     buildToolsVersion '19.1.0'
 
     defaultConfig {
+        applicationId "kai.twitter.voice"
         minSdkVersion 10
         targetSdkVersion 19
         versionCode 20
         versionName "1.3.2"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        release {
+
+        }
     }
 
     packagingOptions {
