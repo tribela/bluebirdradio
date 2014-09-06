@@ -3,6 +3,7 @@
 
 - Transparent Navigation bar.
 - Change artworks.
+- Clean up streams correctly.
 
 
 1.3.1
