@@ -24,10 +24,7 @@
         <Preference
             android:summary="@string/summary_manage_account"
             android:title="@string/title_manage_account">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetClass="kai.twitter.voice.manageAccount.ManageAccountsActivity"
-                android:targetPackage="kai.twitter.voice" />
+            <intent android:action="manage_account" />
         </Preference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/category_misc">
@@ -38,10 +35,7 @@
             android:summary="@string/summary_mute_time"
             android:title="@string/title_mute_time" />
         <Preference android:title="Open source licenses">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetClass="kai.twitter.voice.ViewLicenses"
-                android:targetPackage="kai.twitter.voice" />
+            <intent android:action="view_licenses" />
         </Preference>
     </PreferenceCategory>
 
