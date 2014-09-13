@@ -1,3 +1,9 @@
+1.3.3
+-----
+
+- Fix radio image for landscape mode.
+
+
 1.3.2
 -----
 
