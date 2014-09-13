@@ -2,6 +2,7 @@
 -----
 
 - Fix radio image for landscape mode.
+- Remove shadow on actionbar.
 
 
 1.3.2
