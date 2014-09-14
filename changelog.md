@@ -4,6 +4,7 @@
 - Fix radio image for landscape mode.
 - Remove shadow on actionbar.
 - Change radio artworks.
+- Move preference icon.
 
 
 1.3.2
