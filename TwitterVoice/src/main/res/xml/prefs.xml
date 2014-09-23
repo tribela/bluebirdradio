@@ -20,7 +20,7 @@
             android:summary="@string/summary_remove_url"
             android:title="@string/title_remove_url" />
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="merge_continuous"
             android:summary="@string/summary_merge_continuous"
             android:title="@string/title_merge_continuous" />

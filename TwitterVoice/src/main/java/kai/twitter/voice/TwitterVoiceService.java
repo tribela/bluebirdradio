@@ -123,7 +123,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
         opt_remove_url = preferences.getBoolean("remove_url", true);
         opt_mute_time = Integer.parseInt(preferences.getString("mute_time", "60"));
-        opt_merge_continuous = preferences.getBoolean("merge_continuous", false);
+        opt_merge_continuous = preferences.getBoolean("merge_continuous", true);
 
         registerHeadsetReceiver();
     }
