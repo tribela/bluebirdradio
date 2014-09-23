@@ -32,6 +32,8 @@
     <string name="summary_speak_screenname">Speak screen name instead of account name</string>
     <string name="title_mute_time">Mute same tweet in duration.</string>
     <string name="summary_mute_time">write in seconds</string>
+    <string name="title_merge_continuous">Merge continuous letters</string>
+    <string name="summary_merge_continuous">Continuous letters can be annoying</string>
 
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
     <string name="retweeted_by">Retweeted by {0}.</string>

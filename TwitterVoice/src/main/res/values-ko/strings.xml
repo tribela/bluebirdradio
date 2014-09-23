@@ -32,6 +32,8 @@
     <string name="summary_speak_screenname">닉네임 대신 아이디를 말합니다. (일본어 닉네임 등  TTS가 읽지 못하는 경우)</string>
     <string name="title_mute_time">같은 트윗을 무시할 시간</string>
     <string name="summary_mute_time">같은 트윗이 여러 계정에서 보이거나 리트윗 된 경우 일정 시간동안 다시 말하지 않습니다.</string>
+    <string name="title_merge_continuous">연속된 글자 자르기</string>
+    <string name="summary_merge_continuous">연속된 글자(ㅋ, ㅠ)들은 듣기에 거슬릴 수 있습니다</string>
 
     <string name="unable_get_oauth_token">OAuth 토큰을 얻어오는데 실패하였습니다.</string>
     <string name="retweeted_by">{0} 님이 리트윗 하였습니다.</string>

@@ -1,3 +1,9 @@
+1.4.0
+-----
+
+- New option for remove continuous annoying letters.
+
+
 1.3.1
 -----
 

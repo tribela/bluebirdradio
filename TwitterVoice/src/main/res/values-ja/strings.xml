@@ -32,6 +32,8 @@
     <string name="summary_speak_screenname">ニックネームの代わりにユーザ名を読む。</string>
     <string name="title_mute_time">のようなツイートを無視する時間。</string>
     <string name="summary_mute_time">秒単位で入力してください。</string>
+    <string name="title_merge_continuous">同じ文字を併合</string>
+    <string name="summary_merge_continuous">wwwwwなどの嫌な文字をカットします</string>
 
     <string name="unable_get_oauth_token">OAuth トークンを持ってくるられません。</string>
     <string name="retweeted_by">{0}さんがリツイートしました。</string>

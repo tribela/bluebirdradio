@@ -58,6 +58,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private boolean opt_speak_screenname;
     private boolean opt_stop_on_unplugged;
     private boolean opt_remove_url;
+    private boolean opt_merge_continuous;
     private int opt_mute_time;
 
     public static boolean isRunning() {
@@ -122,6 +123,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
         opt_remove_url = preferences.getBoolean("remove_url", true);
         opt_mute_time = Integer.parseInt(preferences.getString("mute_time", "60"));
+        opt_merge_continuous = preferences.getBoolean("merge_continuous", false);
 
         registerHeadsetReceiver();
     }
@@ -269,6 +271,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             return message.replaceAll(urlPattern, "");
         }
 
+        private String mergeContinuous(String message) {
+            String continuousPattern = "(.)\\1{2,}";
+            return message.replaceAll(continuousPattern, "$1$1");
+        }
+
         @Override
         public void onStatus(Status status) {
 
@@ -290,6 +297,14 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 text = status.getText();
             }
 
+            if (opt_remove_url) {
+                text = removeUrl(text);
+            }
+
+            if (opt_merge_continuous) {
+                text = mergeContinuous(text);
+            }
+
             String message = MessageFormat.format("{0}: {1}",
                     opt_speak_screenname ? user.getScreenName() : user.getName(),
                     text);
@@ -298,10 +313,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 message = MessageFormat.format(getString(R.string.retweeted_by),
                         opt_speak_screenname ? origUser.getScreenName() : origUser.getName()
                 ) + message;
-            }
-
-            if (opt_remove_url) {
-                message = removeUrl(message);
             }
 
             tts.speak(message, TextToSpeech.QUEUE_ADD, null);
@@ -323,6 +334,10 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
             if (opt_remove_url) {
                 message = removeUrl(message);
+            }
+
+            if (opt_merge_continuous) {
+                message = mergeContinuous(message);
             }
 
             tts.speak(message, TextToSpeech.QUEUE_ADD, null);
