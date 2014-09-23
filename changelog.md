@@ -1,3 +1,9 @@
+1.4.1
+-----
+
+- Fix app crashes when mute_time is empty.
+
+
 1.4.0
 -----
 

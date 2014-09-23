@@ -122,7 +122,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         opt_speak_screenname = preferences.getBoolean("speak_screenname", false);
         opt_stop_on_unplugged = preferences.getBoolean("stop_on_unplugged", true);
         opt_remove_url = preferences.getBoolean("remove_url", true);
-        opt_mute_time = Integer.parseInt(preferences.getString("mute_time", "60"));
+        try {
+            opt_mute_time = Integer.parseInt(preferences.getString("mute_time", "60"));
+        } catch (NumberFormatException e) {
+            opt_mute_time = 0;
+        }
         opt_merge_continuous = preferences.getBoolean("merge_continuous", true);
 
         registerHeadsetReceiver();
