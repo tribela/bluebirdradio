@@ -4,6 +4,23 @@
 - New option for remove continuous annoying letters.
 
 
+1.3.3
+-----
+
+- Fix radio image for landscape mode.
+- Remove shadow on actionbar.
+- Change radio artworks.
+- Move preference icon.
+
+
+1.3.2
+-----
+
+- Transparent Navigation bar.
+- Change artworks.
+- Clean up streams correctly.
+
+
 1.3.1
 -----
 
@@ -11,7 +28,7 @@
 - Prevent crashing when logging with null.
 - Read direct messages.
 - Read followed by someone.
-- Change some styles
+- Change some styles.
 
 
 1.3.0

@@ -14,9 +14,8 @@ import android.widget.ImageButton;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
 
-public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements CompoundButton.OnCheckedChangeListener {
     private CompoundButton startServiceToggle;
-    private ImageButton prefButton;
     private DbAdapter adapter;
     private ServiceReceiver serviceReceiver;
 
@@ -28,10 +27,8 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
         adapter = new DbAdapter(getApplicationContext());
 
         startServiceToggle = (CompoundButton) findViewById(R.id.switch_start_service);
-        prefButton = (ImageButton) findViewById(R.id.prefButton);
 
         startServiceToggle.setOnCheckedChangeListener(this);
-        prefButton.setOnClickListener(this);
 
         serviceReceiver = new ServiceReceiver();
         IntentFilter filter = new IntentFilter();
@@ -92,14 +89,6 @@ public class MainActivity extends ActionBarActivity implements CompoundButton.On
                 stopService(serviceIntent);
             }
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-       if (prefButton.getId() == view.getId()) {
-           Intent intent = new Intent(this, SettingsActivity.class);
-           startActivity(intent);
-       }
     }
 
     private class ServiceReceiver extends BroadcastReceiver {
