@@ -209,6 +209,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
         if (streams != null) {
             for (TwitterStream stream : streams) {
+                stream.clearListeners();
                 stream.cleanUp();
                 stream.shutdown();
             }
