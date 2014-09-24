@@ -1,3 +1,10 @@
+1.4.2
+-----
+
+- Disable transparent navigation bar.
+  Pantech phones are crashing with transparent navigation bar.
+
+
 1.4.1
 -----
 
