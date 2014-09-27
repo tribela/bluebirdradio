@@ -34,6 +34,8 @@
     <string name="summary_mute_time">秒単位で入力してください。</string>
     <string name="title_merge_continuous">同じ文字を併合</string>
     <string name="summary_merge_continuous">wwwwwなどの嫌な文字をカットします</string>
+    <string name="title_tts_settings">TTSの設定</string>
+    <string name="summary_tts_settings">音声を調整します</string>
 
     <string name="unable_get_oauth_token">OAuth トークンを持ってくるられません。</string>
     <string name="retweeted_by">{0}さんがリツイートしました。</string>

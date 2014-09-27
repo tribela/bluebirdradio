@@ -34,6 +34,8 @@
     <string name="summary_mute_time">같은 트윗이 여러 계정에서 보이거나 리트윗 된 경우 일정 시간동안 다시 말하지 않습니다.</string>
     <string name="title_merge_continuous">연속된 글자 자르기</string>
     <string name="summary_merge_continuous">연속된 글자(ㅋ, ㅠ)들은 듣기에 거슬릴 수 있습니다</string>
+    <string name="title_tts_settings">TTS 설정</string>
+    <string name="summary_tts_settings">음성 관련 설정을 합니다</string>
 
     <string name="unable_get_oauth_token">OAuth 토큰을 얻어오는데 실패하였습니다.</string>
     <string name="retweeted_by">{0} 님이 리트윗 하였습니다.</string>

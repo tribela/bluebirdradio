@@ -33,6 +33,10 @@
         </Preference>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/category_misc">
+        <Preference android:title="@string/title_tts_settings"
+            android:summary="@string/summary_tts_settings">
+            <intent android:action="com.android.settings.TTS_SETTINGS" />
+        </Preference>
         <EditTextPreference
             android:defaultValue="60"
             android:key="mute_time"
