@@ -81,7 +81,6 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             processDialog = new ProgressDialog(context);
             processDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             processDialog.show();
@@ -90,7 +89,7 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            processDialog.dismiss();
+            if ((processDialog != null) && (processDialog.isShowing())) processDialog.dismiss();
             if (rqToken != null) {
                 webview.loadUrl(rqToken.getAuthorizationURL());
             } else {
