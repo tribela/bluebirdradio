@@ -6,11 +6,14 @@
         <item name="actionBarStyle">@style/ActionBarTheme</item>
         <item name="android:windowContentOverlay">@null</item>
 
+        <item name="colorPrimary">@color/light_skyblue</item>
+        <item name="colorPrimaryDark">@color/skyblue</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 
     <style name="ActionBarTheme" parent="Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@color/light_skyblue</item>
-        <item name="background">@color/light_skyblue</item>
         <item name="titleTextStyle">@style/ActionBarTitle</item>
         <item name="android:titleTextStyle">@style/ActionBarTitle</item>
 
@@ -21,6 +24,7 @@
     </style>
 
     <color name="light_skyblue">#4cabeb</color>
+    <color name="skyblue">#40a4e4</color>
     <color name="white">#ffffff</color>
 
 </resources>
