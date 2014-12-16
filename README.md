@@ -18,4 +18,4 @@ Install
 License
 -------
 
-BlueBird Radio follow GPLv3.
+BlueBird Radio follows GPLv3.
