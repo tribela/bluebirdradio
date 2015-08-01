@@ -3,6 +3,7 @@ package kai.twitter.voice;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -156,9 +157,11 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         if (opt_stop_on_unplugged) {
             if (headphoneReceiverOn == false) {
                 headphoneReceiverOn = true;
-                IntentFilter headphoneFilter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
                 headphoneReceiver.reset();
-                registerReceiver(headphoneReceiver, headphoneFilter);
+                registerReceiver(headphoneReceiver,
+                        new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+                registerReceiver(headphoneReceiver,
+                        new IntentFilter(BluetoothDevice.ACTION_ACL_DISCONNECTED));
             }
         } else {
             if (headphoneReceiverOn) {

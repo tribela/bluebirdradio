@@ -1,5 +1,6 @@
 package kai.twitter.voice;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,10 @@ public class HeadphoneReceiver extends BroadcastReceiver {
                 Intent service = new Intent(context, TwitterVoiceService.class);
                 context.stopService(service);
             }
+        } else if (intent.getAction().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
+            Log.i("HEADSET", "Bluetooth headset unplugged");
+            Intent service = new Intent(context, TwitterVoiceService.class);
+            context.stopService(service);
         }
     }
 
