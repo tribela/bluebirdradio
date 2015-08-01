@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,9 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_accounts);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         accounts = new ArrayList<Twitter>();
         dbAdapter = new DbAdapter(getApplicationContext());
@@ -70,8 +74,9 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
+            case R.id.action_add_account:
+                startLoginActivity();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -79,9 +84,13 @@ public class ManageAccountsActivity extends ActionBarActivity implements View.On
     @Override
     public void onClick(View view) {
         if (R.id.add_account_button == view.getId()) {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
+            startLoginActivity();
         }
+    }
+
+    private void startLoginActivity() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
     }
 
     private void refreshAccounts() {

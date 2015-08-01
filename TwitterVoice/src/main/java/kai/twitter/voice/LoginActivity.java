@@ -1,11 +1,12 @@
 package kai.twitter.voice;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -18,7 +19,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends ActionBarActivity {
 
     private final static Uri CALLBACK_URL = Uri.parse("bluebird://callback");
     private WebView webview;
@@ -31,6 +32,9 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
         webview = (WebView) findViewById(R.id.login_webview);

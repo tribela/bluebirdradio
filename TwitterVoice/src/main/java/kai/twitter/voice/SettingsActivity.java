@@ -1,13 +1,12 @@
 package kai.twitter.voice;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 
 public class SettingsActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -15,12 +14,17 @@ public class SettingsActivity extends ActionBarActivity implements SharedPrefere
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_settings);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
         preference.registerOnSharedPreferenceChangeListener(this);
 
         getFragmentManager()
         .beginTransaction()
-        .replace(android.R.id.content, new SettingsFragment())
+                .replace(R.id.preference, new SettingsFragment())
         .commit();
 
     }
@@ -33,7 +37,7 @@ public class SettingsActivity extends ActionBarActivity implements SharedPrefere
         sendBroadcast(intent);
     }
 
-    private class SettingsFragment extends PreferenceFragment {
+    public static class SettingsFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
