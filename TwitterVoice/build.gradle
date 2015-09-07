@@ -20,8 +20,8 @@ android {
         applicationId "kai.twitter.voice"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 27
-        versionName "1.5.1"
+        versionCode 28
+        versionName "1.5.2"
     }
 
     buildTypes {

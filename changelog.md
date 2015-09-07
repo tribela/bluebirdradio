@@ -1,3 +1,9 @@
+1.5.2
+-----
+
+- Fix text color on Lolipop devices.
+- Fix noSuchMethodError on Android 2.x deviecs.
+
 1.5.0
 -----
 
