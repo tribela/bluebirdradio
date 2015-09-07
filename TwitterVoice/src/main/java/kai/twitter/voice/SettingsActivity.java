@@ -3,12 +3,12 @@ package kai.twitter.voice;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.Toolbar;
 
-public class SettingsActivity extends ActionBarActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +22,10 @@ public class SettingsActivity extends ActionBarActivity implements SharedPrefere
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
         preference.registerOnSharedPreferenceChangeListener(this);
 
-        getFragmentManager()
-        .beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.preference, new SettingsFragment())
-        .commit();
-
+                .commit();
     }
 
     @Override
@@ -37,12 +36,17 @@ public class SettingsActivity extends ActionBarActivity implements SharedPrefere
         sendBroadcast(intent);
     }
 
-    public static class SettingsFragment extends PreferenceFragment {
+    public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             addPreferencesFromResource(R.xml.prefs);
+        }
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String s) {
+
         }
     }
 }

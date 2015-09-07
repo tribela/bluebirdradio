@@ -1,17 +1,15 @@
 package kai.twitter.voice;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-public class ViewLicenses extends ActionBarActivity {
+public class ViewLicenses extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
