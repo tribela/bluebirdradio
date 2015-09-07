@@ -2,28 +2,21 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:actionBarStyle">@style/ActionBarTheme</item>
         <item name="actionBarStyle">@style/ActionBarTheme</item>
         <item name="android:windowContentOverlay">@null</item>
 
         <item name="colorPrimary">@color/light_skyblue</item>
         <item name="colorPrimaryDark">@color/skyblue</item>
-        <item name="android:textColorPrimary">@color/white</item>
 
-        <item name="preferenceTheme">@style/PreferenceTheme</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="ActionBarTheme" parent="Widget.AppCompat.Light.ActionBar.Solid">
         <item name="titleTextStyle">@style/ActionBarTitle</item>
-        <item name="android:titleTextStyle">@style/ActionBarTitle</item>
     </style>
 
     <style name="ActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="PreferenceTheme" parent="PreferenceThemeOverlay">
-        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <color name="light_skyblue">#4cabeb</color>
