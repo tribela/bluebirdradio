@@ -289,26 +289,13 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             return message.replaceAll(continuousPattern, "$1$1");
         }
 
-        @Override
-        public void onStatus(Status status) {
+        private String getUserName(User user) {
+            return opt_speak_screenname ? user.getScreenName() : user.getName();
+        }
 
-            if (statusManager.isSpoken(status)) {
-                Log.d("Tweet", "Duplicated");
-                return;
-            }
-
-            String text;
-            User user;
-            User origUser = null;
-            if (status.isRetweet()) {
-                Status retweetedStatus = status.getRetweetedStatus();
-                user = retweetedStatus.getUser();
-                origUser = status.getUser();
-                text = retweetedStatus.getText();
-            } else {
-                user = status.getUser();
-                text = status.getText();
-            }
+        private String formatMessage(Status status) {
+            User user = status.getUser();
+            String text = status.getText();
 
             if (opt_remove_url) {
                 text = removeUrl(text);
@@ -319,13 +306,30 @@ public class TwitterVoiceService extends Service implements OnInitListener {
             }
 
             String message = MessageFormat.format("{0}: {1}",
-                    opt_speak_screenname ? user.getScreenName() : user.getName(),
+                    getUserName(user),
                     text);
 
-            if (origUser != null) {
-                message = MessageFormat.format(getString(R.string.retweeted_by),
-                        opt_speak_screenname ? origUser.getScreenName() : origUser.getName()
-                ) + message;
+            return message;
+        }
+
+        @Override
+        public void onStatus(Status status) {
+
+            if (statusManager.isSpoken(status)) {
+                Log.d("Tweet", "Duplicated");
+                return;
+            }
+
+            String message;
+
+            if (status.isRetweet()) {
+                Status retweetedStatus = status.getRetweetedStatus();
+                message = MessageFormat.format(
+                        getString(R.string.retweeted_by),
+                        getUserName(status.getUser()),
+                        formatMessage(retweetedStatus));
+            } else {
+                message = formatMessage(status);
             }
 
             tts.speak(message, TextToSpeech.QUEUE_ADD, null);
@@ -433,6 +437,16 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         }
 
         @Override
+        public void onUserSuspension(long l) {
+
+        }
+
+        @Override
+        public void onUserDeletion(long l) {
+
+        }
+
+        @Override
         public void onBlock(User user, User user2) {
 
         }
@@ -440,6 +454,28 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         @Override
         public void onUnblock(User user, User user2) {
 
+        }
+
+        @Override
+        public void onRetweetedRetweet(User source, User target, Status retweetedStatus) {
+
+        }
+
+        @Override
+        public void onFavoritedRetweet(User user, User user1, Status status) {
+
+        }
+
+        @Override
+        public void onQuotedTweet(User source, User target, Status quotingStatus) {
+            if (statusManager.isSpoken(quotingStatus)) {
+                Log.d("Tweet", "Duplicated");
+                return;
+            }
+
+            String message = formatMessage(quotingStatus);
+            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            Log.d("Quoted tweet", message);
         }
 
         @Override
