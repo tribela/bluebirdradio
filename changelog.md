@@ -1,3 +1,9 @@
+1.5.3
+-----
+
+- Service running checking method has been changed.
+
+
 1.5.2
 -----
 
