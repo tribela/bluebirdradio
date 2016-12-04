@@ -1,5 +1,6 @@
 package kai.twitter.voice;
 
+import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -45,7 +46,6 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterVoiceService extends Service implements OnInitListener {
     private static final String SHOW = "Show";
     private static final String STOP = "Stop";
-    private static TwitterVoiceService instance = null;
     private StatusManager statusManager;
     private DbAdapter adapter;
     private TextToSpeech tts;
@@ -62,8 +62,14 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private boolean opt_merge_continuous;
     private int opt_mute_time;
 
-    public static boolean isRunning() {
-        return instance != null;
+    public static boolean isRunning(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (TwitterVoiceService.class.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public IBinder onBind(Intent intent) {
@@ -88,7 +94,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     @Override
     public void onCreate() {
-        instance = this;
         adapter = new DbAdapter(this);
         tts = new TextToSpeech(this, this);
         streams = new ArrayList<TwitterStream>();
@@ -210,7 +215,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     @Override
     public void onDestroy() {
-        instance = null;
         if (tts != null) {
             tts.stop();
             tts.shutdown();

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements CompoundButton.On
     @Override
     protected void onResume() {
         super.onResume();
-        startServiceToggle.setChecked(TwitterVoiceService.isRunning());
+        startServiceToggle.setChecked(TwitterVoiceService.isRunning(getApplicationContext()));
     }
 
     @Override
