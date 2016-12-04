@@ -51,7 +51,6 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     private TextToSpeech tts;
     private List<TwitterStream> streams;
     private List<Long> myIds;
-    private Notification notification;
     private SharedPreferences preferences;
     private HeadphoneReceiver headphoneReceiver;
     private boolean headphoneReceiverOn = false;
@@ -96,8 +95,8 @@ public class TwitterVoiceService extends Service implements OnInitListener {
     public void onCreate() {
         adapter = new DbAdapter(this);
         tts = new TextToSpeech(this, this);
-        streams = new ArrayList<TwitterStream>();
-        myIds = new ArrayList<Long>();
+        streams = new ArrayList<>();
+        myIds = new ArrayList<>();
         headphoneReceiver = new HeadphoneReceiver();
         initConfig();
         statusManager = new StatusManager(opt_mute_time);
@@ -145,7 +144,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         stopIntent.setAction(STOP);
         PendingIntent pMainIntent = PendingIntent.getService(this, 0, mainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pStopIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification = new NotificationCompat.Builder(this)
+        Notification notification = new NotificationCompat.Builder(this)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.noti_running)))
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.noti_running))
@@ -160,7 +159,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
 
     private void registerHeadsetReceiver() {
         if (opt_stop_on_unplugged) {
-            if (headphoneReceiverOn == false) {
+            if (!headphoneReceiverOn) {
                 headphoneReceiverOn = true;
                 headphoneReceiver.reset();
                 registerReceiver(headphoneReceiver,
@@ -305,11 +304,9 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 text = mergeContinuous(text);
             }
 
-            String message = MessageFormat.format("{0}: {1}",
+            return MessageFormat.format("{0}: {1}",
                     getUserName(user),
                     text);
-
-            return message;
         }
 
         @Override
