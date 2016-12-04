@@ -40,6 +40,8 @@
     <string name="unable_get_oauth_token">Unable to get OAuth token</string>
     <!-- 0: source user, 1: formatted text -->
     <string name="retweeted_by">Retweeted by {0}. {1}</string>
+    <!-- 0: source message, 1: target message -->
+    <string name="quoted_by">{0}. Quoting {1}</string>
     <!-- 0: source user, 1: text -->
     <string name="dm_from">Direct message from {0}: {1}</string>
     <!-- 0: source user, 1: target user -->

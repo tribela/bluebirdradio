@@ -473,7 +473,13 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 return;
             }
 
-            String message = formatMessage(quotingStatus);
+            Status quotedStatus = quotingStatus.getQuotedStatus();
+
+            String message = MessageFormat.format(
+                    getString(R.string.quoted_by),
+                    formatMessage(quotingStatus),
+                    formatMessage(quotedStatus)
+            );
             tts.speak(message, TextToSpeech.QUEUE_ADD, null);
             Log.d("Quoted tweet", message);
         }
