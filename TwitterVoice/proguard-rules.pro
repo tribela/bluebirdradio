@@ -1,0 +1,1 @@
+-dontwarn twitter4j.**
