@@ -1,5 +1,6 @@
 package kai.twitter.voice;
 
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import kai.twitter.voice.manageAccount.ManageAccountsActivity;
@@ -265,6 +268,27 @@ public class TwitterVoiceService extends Service implements OnInitListener {
         startActivity(intent);
     }
 
+    private void speak(String message) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts21(message);
+        } else {
+            ttsOld(message);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void ttsOld(String message) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "MessageId");
+        tts.speak(message, TextToSpeech.QUEUE_ADD, map);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void tts21(String message) {
+        String utteranceId = String.valueOf(this.hashCode());
+        tts.speak(message, TextToSpeech.QUEUE_ADD, null, utteranceId);
+    }
+
     private class PrefChangeListener extends BroadcastReceiver {
 
         @Override
@@ -329,7 +353,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 message = formatMessage(status);
             }
 
-            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            speak(message);
             Log.d("Tweet", message);
         }
 
@@ -354,7 +378,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 message = mergeContinuous(message);
             }
 
-            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            speak(message);
             Log.d("DM", message);
         }
 
@@ -364,7 +388,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                 String message = MessageFormat.format(getString(R.string.followed_by),
                         opt_speak_screenname ? user.getScreenName() : user.getName(),
                         opt_speak_screenname ? user2.getScreenName() : user2.getName());
-                tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+                speak(message);
             }
         }
 
@@ -477,7 +501,7 @@ public class TwitterVoiceService extends Service implements OnInitListener {
                     formatMessage(quotingStatus),
                     formatMessage(quotedStatus)
             );
-            tts.speak(message, TextToSpeech.QUEUE_ADD, null);
+            speak(message);
             Log.d("Quoted tweet", message);
         }
 
