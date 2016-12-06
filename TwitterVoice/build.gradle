@@ -59,5 +59,9 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:23.+'
     compile 'com.android.support:preference-v7:23.+'
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'org.twitter4j:twitter4j-core:4.0.4'
+    compile 'org.twitter4j:twitter4j-stream:4.0.4'
+//    compile 'org.twitter4j:twitter4j-media-support:4.0.4'
+//    compile 'org.twitter4j:twitter4j-async:4.0.4'
+//    compile fileTree(dir: 'libs', include: '*.jar')
 }
