@@ -1,3 +1,10 @@
+1.5.6
+-----
+
+- Upgrade Twitter4j library to 4.0.6.
+  It has support extended tweet.
+
+
 1.5.4
 -----
 
