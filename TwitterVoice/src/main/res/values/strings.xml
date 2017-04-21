@@ -18,6 +18,7 @@
     <string name="not_logged_in">Login failed</string>
 
     <string name="noti_running">Running</string>
+    <string name="noti_action_stop">Stop</string>
 
     <string name="category_options">Options</string>
     <string name="category_accounts">Accounts</string>

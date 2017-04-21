@@ -18,6 +18,7 @@
     <string name="not_logged_in">ログインに失敗しました。</string>
 
     <string name="noti_running">実行中</string>
+    <string name="noti_action_stop">ストップ</string>
 
     <string name="category_options">オプション</string>
     <string name="category_accounts">アカウント</string>
